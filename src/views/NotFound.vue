@@ -1,13 +1,10 @@
 <template>
-  <div>
-    statistics
-    <Navbar />
-  </div>
+  <div>404</div>
 </template>
 
 <script lang="ts">
 export default {
-  name: "Statistics"
+  name: "NotFound"
 };
 </script>
 

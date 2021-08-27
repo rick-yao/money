@@ -1,5 +1,8 @@
 <template>
-  <div>labels</div>
+  <div>
+    labels
+    <Navbar />
+  </div>
 </template>
 
 <script lang="ts">
