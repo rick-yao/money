@@ -25,6 +25,5 @@ export default {
 }
 
 .nav {
-  border: 1px solid green;
 }
 </style>
