@@ -3,13 +3,13 @@
     <div class="main-content">
       <slot></slot>
     </div>
-    <Navbar class="nav" />
+    <Navbar class="nav"/>
   </div>
 </template>
 
 <script lang="ts">
 export default {
-  name: "Layout"
+  name: 'Layout'
 };
 </script>
 
@@ -22,6 +22,9 @@ export default {
 
 .main-content {
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
 }
 
 .nav {
