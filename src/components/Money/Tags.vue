@@ -18,8 +18,8 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
-  @Prop() readonly value!: string[];
-  @Prop() readonly record!: string[];
+  @Prop(Array) readonly value!: string[];
+  @Prop(Array) readonly record!: string[];
   selectedTags: string[] = [];
 
   pushArray(key: string) {
