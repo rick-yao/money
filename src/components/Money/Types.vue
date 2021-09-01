@@ -1,7 +1,7 @@
 <template>
   <div class="types">
-    <div :class="secType==='-'? 'selected' :'' " @click="selectType('-')">支出</div>
-    <div :class="secType==='+'? 'selected' :'' " @click="selectType('+')">收入</div>
+    <div :class="this.value==='-'? 'selected' :'' " @click="selectType('-')">支出</div>
+    <div :class="this.value==='+'? 'selected' :'' " @click="selectType('+')">收入</div>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import {Component} from 'vue-property-decorator';
 
 @Component({
   props: {
-    secType: String
+    value: String
   }
 })
 export default class Types extends Vue {
@@ -20,7 +20,7 @@ export default class Types extends Vue {
     if (types !== '+' && types !== '-') {
       throw new Error('type错误');
     }
-    this.$emit('update:secType', types);
+    this.$emit('update:value', types);
   }
 }
 </script>

@@ -1,7 +1,8 @@
 <template>
   <div class="label">
     <ul class="tags">
-      <li v-for='key in value' :key="key" @click="pushArray(key)" :class="selectedTags.indexOf(key)>=0 && 'selected'">
+      <li v-for='key in value' :key="key" @click="pushArray(key)"
+          :class="selectedTags.indexOf(key)>=0 && 'selected'">
         {{ key }}
       </li>
     </ul>
@@ -13,11 +14,12 @@
 
 <script lang='ts'>
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
   @Prop() readonly value!: string[];
+  @Prop() readonly record!: string[];
   selectedTags: string[] = [];
 
   pushArray(key: string) {
@@ -27,6 +29,10 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(key);
     }
+  }
+
+  @Watch('selectedTags') onselectedTagschaned(val: string) {
+    this.$emit('update:record', val);
   }
 
   addTag() {
