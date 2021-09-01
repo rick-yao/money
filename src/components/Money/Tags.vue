@@ -1,21 +1,50 @@
 <template>
   <div class="label">
     <ul class="tags">
-      <li>衣</li>
-      <li>食</li>
-      <li>住</li>
-      <li>行</li>
+      <li v-for='key in value' :key="key" @click="pushArray(key)" :class="selectedTags.indexOf(key)>=0 && 'selected'">
+        {{ key }}
+      </li>
     </ul>
     <div class="new">
-      <button class="add">新增标签</button>
+      <button class="add" @click="addTag">新增标签</button>
     </div>
   </div>
 </template>
 
 <script lang='ts'>
-export default {
-  name: 'Tags'
-};
+import Vue from 'vue';
+import {Component, Prop, PropSync} from 'vue-property-decorator';
+
+@Component({
+  props: {
+    value: Array
+  }
+})
+export default class Tags extends Vue {
+  // @PropSync() readonly value: string[];
+  selectedTags: string[] = [];
+
+  pushArray(key: string) {
+    const index = this.selectedTags.indexOf(key);
+    if (this.selectedTags.indexOf(key) >= 0) {
+      this.selectedTags.splice(index, 1);
+    } else {
+      this.selectedTags.push(key);
+    }
+  }
+
+  addTag() {
+    const newTag = window.prompt('请输入标签名');
+    if (newTag == '') {
+      window.alert('标签名不能为空');
+    } else {
+      if (this.value) {
+        this.$emit('update:value', [...this.value, newTag]);
+      }
+    }
+  }
+
+}
 </script>
 
 <style lang='scss' scoped>
@@ -35,8 +64,15 @@ export default {
       background: #d4d4d4;
       width: 40px;
       border-radius: 8px 8px;
+
+      &.selected {
+        color: whitesmoke;
+        background: #999;
+
+      }
     }
   }
+
 
   .new {
     padding-top: 16px;

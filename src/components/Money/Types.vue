@@ -1,27 +1,26 @@
 <template>
   <div class="types">
-    <div :class="type==='-'? 'selected' :'' " @click="selectType('-')">支出</div>
-    <div :class="type==='+'? 'selected' :'' " @click="selectType('+')">收入</div>
+    <div :class="secType==='-'? 'selected' :'' " @click="selectType('-')">支出</div>
+    <div :class="secType==='+'? 'selected' :'' " @click="selectType('+')">收入</div>
   </div>
 </template>
 
 <script lang='ts'>
 import Vue from 'vue';
-import {Component, Prop} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 
 @Component({
   props: {
-    msg: 0
+    secType: String
   }
 })
 export default class Types extends Vue {
-  type = '-';
 
   selectType(types: string) {
     if (types !== '+' && types !== '-') {
       throw new Error('type错误');
     }
-    this.type = types;
+    this.$emit('update:secType', types);
   }
 }
 </script>
