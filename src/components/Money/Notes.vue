@@ -2,15 +2,28 @@
   <div class="notes">
     <label>
       <span>备注</span>
-      <input type="text" placeholder="在这里添加备注">
+      <input type="text" placeholder="在这里添加备注" v-model="note">
     </label>
   </div>
 </template>
 
 <script lang='ts'>
-export default {
-  name: 'Notes'
-};
+
+import Vue from 'vue';
+import {Component, Watch} from 'vue-property-decorator';
+
+@Component({
+  props: {
+    value: String
+  }
+})
+export default class Notes extends Vue {
+  note = '';
+
+  @Watch('note') onNotechanged(val: string) {
+    this.$emit('update:value', val);
+  }
+}
 </script>
 
 <style lang='scss' scoped>

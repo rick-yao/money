@@ -1,9 +1,9 @@
 <template>
   <Layout>
     <Tags :value.sync="allTags"/>
-    <Notes/>
+    <Notes :value.sync="notes"/>
     <Types :sec-type.sync="selectedType"/>
-    <NumberPad/>
+    <NumberPad :value.sync="number"/>
   </Layout>
 </template>
 
@@ -23,7 +23,8 @@ import Vue from 'vue';
 export default class Money extends Vue {
   selectedType = '-';
   allTags: string[] = ['衣', '食', '住', '行',];
-
+  notes = '';
+  number = '0';
 }
 </script>
 

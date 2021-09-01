@@ -13,15 +13,11 @@
 
 <script lang='ts'>
 import Vue from 'vue';
-import {Component, Prop, PropSync} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
-@Component({
-  props: {
-    value: Array
-  }
-})
+@Component
 export default class Tags extends Vue {
-  // @PropSync() readonly value: string[];
+  @Prop() readonly value!: string[];
   selectedTags: string[] = [];
 
   pushArray(key: string) {
