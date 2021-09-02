@@ -1,5 +1,5 @@
 <template>
-  <Layout>
+  <Layout :content-prefix="layout">
     <Tags :value.sync="tags" @update:record="updateTags"/>
     <Notes :value.sync="record.notes"/>
     <Types :value.sync="record.type"/>
@@ -23,6 +23,7 @@ import {model} from '@/model';
   }
 })
 export default class Money extends Vue {
+  layout = 'layout';
   recordList: RecordItem[] = model.fetch();
   tags = ['衣', '食', '住', '行',];
   record: RecordItem = {
@@ -49,5 +50,11 @@ export default class Money extends Vue {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+.layout-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
 </style>

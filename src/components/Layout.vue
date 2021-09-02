@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
-    <div class="main-content">
-      <slot></slot>
+    <div class="main-content" :class="`${contentPrefix}-content`">
+      <slot/>
     </div>
     <Navbar class="nav"/>
   </div>
@@ -9,7 +9,8 @@
 
 <script lang="ts">
 export default {
-  name: 'Layout'
+  name: 'Layout',
+  props: ['contentPrefix']
 };
 </script>
 
@@ -22,11 +23,6 @@ export default {
 
 .main-content {
   flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
 }
 
-.nav {
-}
 </style>
