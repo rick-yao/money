@@ -16,7 +16,7 @@ import {Component} from 'vue-property-decorator';
 })
 export default class Types extends Vue {
 
-  selectType(types: string) {
+  selectType(types: string): void {
     if (types !== '+' && types !== '-') {
       throw new Error('type错误');
     }

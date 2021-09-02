@@ -1,15 +1,15 @@
 <template>
   <nav>
     <router-link class="items" active-class="selected" to="/money">
-      <Icon name="money" />
+      <Icon name="money"/>
       记账
     </router-link>
     <router-link class="items" active-class="selected" to="/labels">
-      <Icon name="label" />
+      <Icon name="label"/>
       标签
     </router-link>
     <router-link class="items" active-class="selected" to="/statistics">
-      <Icon name="statistics" />
+      <Icon name="statistics"/>
       数据
     </router-link>
   </nav>
@@ -17,14 +17,13 @@
 
 <script lang="ts">
 export default {
-  name: "Navbar"
+  name: 'Navbar'
 };
 </script>
 
 <style lang="scss" scoped>
 nav {
   display: flex;
-  //justify-content: space-around;
   box-shadow: 0 0 5px rgb(0, 0, 0, 0.25);
 
   > .items {

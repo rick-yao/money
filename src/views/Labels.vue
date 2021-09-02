@@ -12,7 +12,6 @@
 
 import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
-import Money from '@/views/style/Money.vue';
 
 @Component
 export default class labels extends Vue {

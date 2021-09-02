@@ -14,7 +14,7 @@ import Types from '@/components/Money/Types.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import {Component, Watch} from 'vue-property-decorator';
 import Vue from 'vue';
-import {model} from '@/model';
+import {modelRecord} from '@/models/model-record';
 
 
 @Component({
@@ -24,7 +24,7 @@ import {model} from '@/model';
 })
 export default class Money extends Vue {
   layout = 'layout';
-  recordList: RecordItem[] = model.fetch();
+  recordList: RecordItem[] = modelRecord.fetch();
   tags = ['衣', '食', '住', '行',];
   record: RecordItem = {
     type: '-',
@@ -33,18 +33,18 @@ export default class Money extends Vue {
     number: '0',
   };
 
-  updateTags(e: string[]) {
+  updateTags(e: string[]): void {
     this.record.selectedTags = e;
   }
 
-  setLocal() {
-    const tmp = model.clone(this.record);
+  setLocal(): void {
+    const tmp = modelRecord.clone(this.record);
     tmp.date = new Date();
     this.recordList.push(tmp);
   }
 
-  @Watch('recordList') onrecordlistchanged(val: RecordItem[]) {
-    model.save(this.recordList);
+  @Watch('recordList') onRecordListChanged(val: RecordItem[]): void {
+    modelRecord.save(val);
   }
 
 }

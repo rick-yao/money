@@ -22,7 +22,7 @@ export default class Tags extends Vue {
   @Prop(Array) readonly record!: string[];
   selectedTags: string[] = [];
 
-  pushArray(key: string) {
+  pushArray(key: string): void {
     const index = this.selectedTags.indexOf(key);
     if (this.selectedTags.indexOf(key) >= 0) {
       this.selectedTags.splice(index, 1);
@@ -31,11 +31,11 @@ export default class Tags extends Vue {
     }
   }
 
-  @Watch('selectedTags') onselectedTagschaned(val: string) {
+  @Watch('selectedTags') onSelectedTagsChanged(val: string): void {
     this.$emit('update:record', val);
   }
 
-  addTag() {
+  addTag(): void {
     const newTag = window.prompt('请输入标签名');
     if (newTag == '') {
       window.alert('标签名不能为空');

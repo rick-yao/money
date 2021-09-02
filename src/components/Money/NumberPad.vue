@@ -29,7 +29,7 @@ export default class NumberPad extends Vue {
   @Prop(String) value!: string;
   output = this.value;
 
-  inputContent(e: MouseEvent) {
+  inputContent(e: MouseEvent): void {
     const tmp = (e.target as HTMLButtonElement).textContent;
     if (this.output.length === 16) {
       return;
@@ -54,7 +54,7 @@ export default class NumberPad extends Vue {
     }
   }
 
-  deleteContent() {
+  deleteContent(): void {
     if (this.output.length > 1) {
       this.output = this.output.substring(0, this.output.length - 1);
     } else {
@@ -62,11 +62,11 @@ export default class NumberPad extends Vue {
     }
   }
 
-  clearContent() {
+  clearContent(): void {
     this.output = '0';
   }
 
-  submit() {
+  submit(): void {
     this.$emit('update:value', this.output);
     this.$emit('update:finalResult', this.output);
   }
