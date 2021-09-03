@@ -8,14 +8,14 @@
 </template>
 
 <script lang="ts">
+import Vue from 'vue';
+import {modelRecord} from '@/models/model-record';
+import {tagListModel} from '@/models/model-tag';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import Types from '@/components/Money/Types.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import {Component, Watch} from 'vue-property-decorator';
-import Vue from 'vue';
-import {modelRecord} from '@/models/model-record';
-
 
 @Component({
   components: {
@@ -25,7 +25,7 @@ import {modelRecord} from '@/models/model-record';
 export default class Money extends Vue {
   layout = 'layout';
   recordList: RecordItem[] = modelRecord.fetch();
-  tags = ['衣', '食', '住', '行',];
+  tags = tagListModel.fetch();
   record: RecordItem = {
     type: '-',
     selectedTags: [],

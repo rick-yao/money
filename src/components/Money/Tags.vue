@@ -15,12 +15,16 @@
 <script lang='ts'>
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
+import {tagListModel} from '@/models/model-tag';
+
+tagListModel.fetch();
 
 @Component
 export default class Tags extends Vue {
   @Prop(Array) readonly value!: string[];
   @Prop(Array) readonly record!: string[];
   selectedTags: string[] = [];
+  tags = tagListModel.tag;
 
   pushArray(key: string): void {
     const index = this.selectedTags.indexOf(key);
@@ -39,12 +43,16 @@ export default class Tags extends Vue {
     const newTag = window.prompt('请输入标签名');
     if (newTag == '') {
       window.alert('标签名不能为空');
+    } else if (this.tags.indexOf(newTag) >= 0
+    ) {
+      window.alert('标签已存在');
+      return;
     } else {
-      if (this.value) {
-        this.$emit('update:value', [...this.value, newTag]);
-      }
+      tagListModel.create(newTag);
+      tagListModel.save();
     }
   }
+
 
 }
 </script>
