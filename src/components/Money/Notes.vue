@@ -2,7 +2,7 @@
   <div class="notes">
     <label>
       <span>{{ this.name }}</span>
-      <input type="text" :placeholder="this.placeHolder" v-model="note">
+      <input type="text" :placeholder="this.placeHolder" :value="value" @input="onNoteChanged($event.target.value)">
     </label>
   </div>
 </template>
@@ -20,9 +20,8 @@ import {Component, Watch} from 'vue-property-decorator';
   }
 })
 export default class Notes extends Vue {
-  note = this.value;
 
-  @Watch('note') onNoteChanged(val: string): void {
+  onNoteChanged(val: string): void {
     this.$emit('update:value', val);
   }
 }
