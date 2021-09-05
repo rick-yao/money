@@ -1,9 +1,9 @@
 <template>
   <div class="label">
     <ul class="tags">
-      <li v-for='key in value' :key="key" @click="pushArray(key)"
-          :class="selectedTags.indexOf(key)>=0 && 'selected'">
-        {{ key }}
+      <li v-for='key in value' :key="key.id" @click="pushArray(key.name)"
+          :class="selectedTags.indexOf(key.name)>=0 && 'selected'">
+        {{ key.name }}
       </li>
     </ul>
     <div class="new">
@@ -21,7 +21,7 @@ tagListModel.fetch();
 
 @Component
 export default class Tags extends Vue {
-  @Prop(Array) readonly value!: string[];
+  @Prop() readonly value !: Tag[];
   @Prop(Array) readonly record!: string[];
   selectedTags: string[] = [];
   tags = tagListModel.tag;

@@ -3,8 +3,8 @@
     <router-view/>
     <div class="tagList">
       <router-link class="item" v-for="tag in tags" :key="tag"
-                   :to="`/labels/edit/${tag}`">
-        <span>{{ tag }}</span>
+                   :to="`/labels/edit/${tag.name}`">
+        <span>{{ tag.name }}</span>
         <Icon name="right"/>
       </router-link>
 

@@ -5,8 +5,10 @@
       <span class="title">编辑标签</span>
       <span class="rightBlank"></span>
     </nav>
-    <Notes class="input" :value.sync="inputContent" :name="this.id" place-holder="标签值"/>
+    <Notes class="input" :value.sync="tag" name="标签名" place-holder="标签值"/>
+    <Button @click="saveButton" button-name="保存"/>
     <Button @click="deleteButton" button-name="删除标签"/>
+    {{ this.tag }}
   </layout>
 </template>
 
@@ -21,13 +23,15 @@ import {tagListModel} from '@/models/model-tag';
   components: {Button, Notes}
 })
 export default class LabelEdit extends Vue {
-  inputContent = '';
-  id = this.$route.params.id;
+  tag = '';
 
   created(): void {
     const id = this.$route.params.id;
     const tag = tagListModel.fetch();
+    const index = tag.findIndex(id => id === tag);
     if (tag.indexOf(id) >= 0) {
+      console.log(tag);
+
       return;
     } else {
       this.$router.replace('/404');
@@ -36,6 +40,11 @@ export default class LabelEdit extends Vue {
 
   deleteButton() {
     console.log('1');
+  }
+
+  saveButton() {
+    console.log(1);
+    tagListModel.save();
   }
 
   @Watch('inputContent') onInputContentChanged(val: string): void {
