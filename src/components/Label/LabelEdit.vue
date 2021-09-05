@@ -5,7 +5,7 @@
       <span class="title">编辑标签</span>
       <span class="rightBlank"></span>
     </nav>
-    <Notes class="input" :value.sync="inputContent" name="标签名" place-holder="标签值"/>
+    <Notes class="input" :value.sync="inputContent" :name="this.id" place-holder="标签值"/>
     <Button @click="deleteButton" button-name="删除标签"/>
   </layout>
 </template>
@@ -15,12 +15,24 @@ import Vue from 'vue';
 import {Component, Watch} from 'vue-property-decorator';
 import Notes from '@/components/Money/Notes.vue';
 import Button from '@/components/Button.vue';
+import {tagListModel} from '@/models/model-tag';
 
 @Component({
   components: {Button, Notes}
 })
 export default class LabelEdit extends Vue {
   inputContent = '';
+  id = this.$route.params.id;
+
+  created(): void {
+    const id = this.$route.params.id;
+    const tag = tagListModel.fetch();
+    if (tag.indexOf(id) >= 0) {
+      return;
+    } else {
+      this.$router.replace('/404');
+    }
+  }
 
   deleteButton() {
     console.log('1');
