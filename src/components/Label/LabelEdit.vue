@@ -6,7 +6,6 @@
       <span class="rightBlank"></span>
     </nav>
     <Notes class="input" :value.sync="tag" name="标签名" place-holder="标签值"/>
-    <Button @click="saveButton" button-name="保存"/>
     <Button @click="deleteButton" button-name="删除标签"/>
     {{ this.tag }}
   </layout>
@@ -26,12 +25,10 @@ export default class LabelEdit extends Vue {
   tag = '';
 
   created(): void {
-    const id = this.$route.params.id;
+    const name = this.$route.params.id;
     const tag = tagListModel.fetch();
-    const index = tag.findIndex(id => id === tag);
-    if (tag.indexOf(id) >= 0) {
-      console.log(tag);
-
+    const index = tag.findIndex(tag => tag.name === name);
+    if (index >= 0) {
       return;
     } else {
       this.$router.replace('/404');

@@ -1,5 +1,4 @@
 import GenerateID from "@/lib/IdGenerator";
-import Tags from "@/components/Money/Tags.vue";
 
 const localStorageKeyName = "tagListModel";
 type Tag = {
