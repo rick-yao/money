@@ -34,7 +34,7 @@ nav {
     justify-content: center;
     align-items: center;
 
-    > .icon {
+    > .goPrevious {
       height: 32px;
       width: 32px;
     }

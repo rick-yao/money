@@ -9,6 +9,7 @@ type LocalTags = {
   tag: Tag[];
   fetch: () => Tag[];
   update: (id: string, name: string) => void;
+  remove: (index: number) => void;
   save: () => void;
   create: (data: string) => void;
 };
@@ -19,12 +20,15 @@ const tagListModel: LocalTags = {
     return this.tag;
   },
   update(id, name) {
-    console.log(1);
     const index = this.tag.findIndex((item) => item.id === id);
     if (index >= 0) {
       this.tag[index].name = name;
       this.save();
     }
+  },
+  remove(index) {
+    this.tag.splice(index, 1);
+    this.save();
   },
   save() {
     window.localStorage.setItem(localStorageKeyName, JSON.stringify(this.tag));

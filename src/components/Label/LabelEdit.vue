@@ -1,7 +1,7 @@
 <template>
   <layout>
     <nav class="topBar">
-      <Icon name="left" class="icon"/>
+      <Icon name="left" class="goPrevious" @click.native="goPrevious"/>
       <span class="title">编辑标签</span>
       <span class="rightBlank"></span>
     </nav>
@@ -43,13 +43,17 @@ export default class LabelEdit extends Vue {
     }
   }
 
-  deleteButton() {
-    console.log('1');
+  goPrevious(): void {
+    this.$router.back();
   }
 
-  @Watch('tagName') onTagNameChanged(val) {
+  deleteButton(): void {
+    tagListModel.remove(this.index);
+    this.$router.back();
+  }
+
+  @Watch('tagName') onTagNameChanged(val): void {
     this.tag[this.index].name = val;
-    console.log(222);
     tagListModel.update(this.id, val);
   }
 
@@ -68,7 +72,7 @@ export default class LabelEdit extends Vue {
   background: white;
   padding: 12px 0;
 
-  .icon {
+  .goPrevious {
     height: 24px;
     width: 24px;
   }
