@@ -33,11 +33,11 @@ export default class labels extends Vue {
     const newTag = window.prompt('请输入标签名');
     if (newTag == '') {
       window.alert('标签名不能为空');
-    } else if (this.tags.indexOf(newTag) >= 0
+    } else if (newTag && this.tags.indexOf(newTag) >= 0
     ) {
       window.alert('标签已存在');
       return;
-    } else {
+    } else if (newTag) {
       tagListModel.create(newTag);
       tagListModel.save();
     }

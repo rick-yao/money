@@ -40,7 +40,7 @@ export default class Tags extends Vue {
   }
 
   addTag(): void {
-    const newTag = window.prompt('请输入标签名');
+    const newTag: string = window.prompt('请输入标签名') || '';
     if (newTag == '') {
       window.alert('标签名不能为空');
     } else if (this.tags.indexOf(newTag) >= 0
