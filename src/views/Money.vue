@@ -1,7 +1,7 @@
 <template>
   <Layout :content-prefix="layout">
     <Tags :value.sync="tags" @update:record="updateTags"/>
-    <Notes :value.sync="record.notes"/>
+    <Notes :value.sync="record.notes" name="备注" place-holder="请在此处输入备注"/>
     <Types :value.sync="record.type"/>
     <NumberPad :value.sync="record.number" @update:finalResult="setLocal"/>
   </Layout>

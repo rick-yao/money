@@ -8,9 +8,7 @@
       </li>
 
     </ol>
-    <div class="addTag-wrapper">
-      <button class="addTag" @click="addTag">新建标签</button>
-    </div>
+    <Button button-name="新建标签" @click="addTag"></Button>
   </layout>
 </template>
 
@@ -20,9 +18,11 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import {tagListModel} from '@/models/model-tag';
 import Icon from '@/components/Icon';
+import Button from '@/components/Button.vue';
 
 
 @Component({
+  components: {Button},
   component: {Icon}
 })
 export default class labels extends Vue {

@@ -1,8 +1,8 @@
 <template>
   <div class="notes">
     <label>
-      <span>备注</span>
-      <input type="text" placeholder="在这里添加备注" v-model="note">
+      <span>{{ this.name }}</span>
+      <input type="text" :placeholder="this.placeHolder" v-model="note">
     </label>
   </div>
 </template>
@@ -14,6 +14,8 @@ import {Component, Watch} from 'vue-property-decorator';
 
 @Component({
   props: {
+    name: String,
+    placeHolder: String,
     value: String
   }
 })
@@ -31,8 +33,7 @@ export default class Notes extends Vue {
   label {
     display: flex;
     align-items: center;
-    background: #f5f5f5;
-    font-size: 14px;
+    font-size: 16px;
     padding: 20px 0;
 
     span {
@@ -42,7 +43,7 @@ export default class Notes extends Vue {
     input {
       border: none;
       flex-grow: 1;
-      background: #f5f5f5;
+      background: inherit;
     }
   }
 }
