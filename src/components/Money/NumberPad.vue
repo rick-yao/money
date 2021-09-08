@@ -89,6 +89,7 @@ export default class NumberPad extends Vue {
     background: linear-gradient(to bottom right, #f2f2f2, #8b8b8b);
 
     button {
+      color: black;
       height: 64px;
       width: 25%;
 
