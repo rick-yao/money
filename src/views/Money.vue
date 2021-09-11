@@ -3,19 +3,18 @@
     <Tags :value.sync="tags" @update:record="updateTags"/>
     <Notes :value.sync="record.notes" name="备注" place-holder="请在此处输入备注"/>
     <Types :value.sync="record.type"/>
-    <NumberPad :value.sync="record.number" @update:finalResult="setLocal"/>
+    <NumberPad :value.sync="record.number" @update:finalResult="saveRecord"/>
   </Layout>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {modelRecord} from '@/models/model-record';
 import {tagListModel} from '@/models/model-tag';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import Types from '@/components/Money/Types.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 
 @Component({
   components: {
@@ -24,8 +23,8 @@ import {Component, Watch} from 'vue-property-decorator';
 })
 export default class Money extends Vue {
   layout = 'layout';
-  recordList: RecordItem[] = modelRecord.fetch();
   tags = tagListModel.fetch();
+  //record 为初始值，所有的变化也都从组建中传到这里2
   record: RecordItem = {
     type: '-',
     selectedTags: [],
@@ -33,20 +32,17 @@ export default class Money extends Vue {
     number: '0',
   };
 
+  beforeCreated() {
+    this.$store.commit('loadRecords');
+  }
+
   updateTags(e: string[]): void {
     this.record.selectedTags = e;
   }
 
-  setLocal(): void {
-    const tmp = modelRecord.clone(this.record);
-    tmp.date = new Date();
-    this.recordList.push(tmp);
+  saveRecord(): void {
+    this.$store.commit('createRecord', this.record);
   }
-
-  @Watch('recordList') onRecordListChanged(val: RecordItem[]): void {
-    modelRecord.save(val);
-  }
-
 }
 </script>
 

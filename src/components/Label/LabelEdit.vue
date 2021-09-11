@@ -52,7 +52,7 @@ export default class LabelEdit extends Vue {
     this.$router.back();
   }
 
-  @Watch('tagName') onTagNameChanged(val): void {
+  @Watch('tagName') onTagNameChanged(val: string): void {
     this.tag[this.index].name = val;
     tagListModel.update(this.id, val);
   }
