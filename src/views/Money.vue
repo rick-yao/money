@@ -32,7 +32,7 @@ export default class Money extends Vue {
     number: '0',
   };
 
-  beforeCreated() {
+  beforeCreate(): void {
     this.$store.commit('loadRecords');
   }
 
