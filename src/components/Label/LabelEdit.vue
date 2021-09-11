@@ -5,38 +5,35 @@
       <span class="title">编辑标签</span>
       <span class="rightBlank"></span>
     </nav>
-    <Notes class="input" :value.sync="tagName" name="标签名" place-holder="标签值"/>
+    <Notes class="input" :value="currentTag.name" name="标签名" place-holder="标签值" @update:value="updateTag"/>
     <Button @click="deleteButton" button-name="删除标签"/>
-    {{ this.tag }}
   </layout>
 </template>
 
 <script lang='ts'>
 import Vue from 'vue';
-import {Component, Watch} from 'vue-property-decorator';
+import {Component} from 'vue-property-decorator';
 import Notes from '@/components/Money/Notes.vue';
 import Button from '@/components/Button.vue';
-import {tagListModel} from '@/models/model-tag';
 
-tagListModel.fetch();
 @Component({
   components: {Button, Notes}
 })
 export default class LabelEdit extends Vue {
-  id = '';
-  tagName = '';
-  tag = tagListModel.tag;
-  index = 0;
+  get currentTag(): Tag {
+    return this.$store.state.currentTag;
+  }
+
+  beforeCreate(): void {
+    this.$store.commit('loadTags');
+  }
 
   created(): void {
     const pathName = this.$route.params.id;
-
-    const tag = tagListModel.fetch();
+    const tag = this.$store.state.tagList;
     const index = tag.findIndex(item => item.name === pathName);
     if (index >= 0) {
-      this.id = tag[index].id;
-      this.tagName = tag[index].name;
-      this.index = index;
+      this.$store.commit('setCurrentTag', pathName);
       return;
     } else {
       this.$router.replace('/404');
@@ -48,18 +45,17 @@ export default class LabelEdit extends Vue {
   }
 
   deleteButton(): void {
-    tagListModel.remove(this.index);
-    this.$router.back();
+    this.$store.commit('removeTag', this.$store.state.currentTag.index);
+    this.goPrevious();
   }
 
-  @Watch('tagName') onTagNameChanged(val: string): void {
-    this.tag[this.index].name = val;
-    tagListModel.update(this.id, val);
+  updateTag(val: string): void {
+    this.$store.commit('updateTag', {id: this.currentTag.id, name: val});
   }
 
-  @Watch('inputContent') onInputContentChanged(val: string): void {
-    this.inputContent = val;
-  }
+  // @Watch('inputContent') onInputContentChanged(val: string): void {
+  //   this.inputContent = val;
+  // }
 }
 </script>
 

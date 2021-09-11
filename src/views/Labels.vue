@@ -1,15 +1,15 @@
 <template>
   <layout>
-    <router-view />
+    <router-view/>
     <div class="tagList">
       <router-link
-        class="item"
-        v-for="tag in tags"
-        :key="tag.id"
-        :to="`/labels/edit/${tag.name}`"
+          class="item"
+          v-for="tag in tags"
+          :key="tag.id"
+          :to="`/labels/edit/${tag.name}`"
       >
         <span>{{ tag.name }}</span>
-        <Icon name="right" />
+        <Icon name="right"/>
       </router-link>
     </div>
     <Button button-name="新建标签" @click="addTag"></Button>
@@ -17,28 +17,32 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import { tagListModel } from "@/models/model-tag";
-import Icon from "@/components/Icon.vue";
-import Button from "@/components/Button.vue";
+import Vue from 'vue';
+import {Component} from 'vue-property-decorator';
+import Icon from '@/components/Icon.vue';
+import Button from '@/components/Button.vue';
 
 @Component({
-  components: { Button, Icon },
+  components: {Button, Icon},
 })
 export default class labels extends Vue {
-  tags = tagListModel.fetch();
+  tags = this.$store.state.tagList;
+
+  beforeCreate(): void {
+    this.$store.commit('loadTags');
+  }
 
   addTag(): void {
-    const newTag = window.prompt("请输入标签名");
-    if (newTag == "") {
-      window.alert("标签名不能为空");
-    } else if (newTag && this.tags.indexOf(newTag) >= 0) {
-      window.alert("标签已存在");
+    const newTag: string = window.prompt('请输入标签名') || '';
+    const nameList = this.tags.map(t => t.name);
+    if (newTag == '') {
+      window.alert('标签名不能为空');
+    } else if (nameList.indexOf(newTag) >= 0
+    ) {
+      window.alert('标签已存在');
       return;
-    } else if (newTag) {
-      tagListModel.create(newTag);
-      tagListModel.save();
+    } else {
+      this.$store.commit('createTag', newTag);
     }
   }
 }

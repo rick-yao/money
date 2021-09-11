@@ -9,7 +9,6 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import {tagListModel} from '@/models/model-tag';
 import Notes from '@/components/Money/Notes.vue';
 import Tags from '@/components/Money/Tags.vue';
 import Types from '@/components/Money/Types.vue';
@@ -23,7 +22,7 @@ import {Component} from 'vue-property-decorator';
 })
 export default class Money extends Vue {
   layout = 'layout';
-  tags = tagListModel.fetch();
+  tags = this.$store.state.tagList;
   //record 为初始值，所有的变化也都从组建中传到这里2
   record: RecordItem = {
     type: '-',

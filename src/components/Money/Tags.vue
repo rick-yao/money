@@ -1,7 +1,7 @@
 <template>
   <div class="label">
     <ul class="tags">
-      <li v-for='key in value' :key="key.id" @click="pushArray(key.name)"
+      <li v-for='key in this.tags' :key="key.id" @click="pushArray(key.name)"
           :class="selectedTags.indexOf(key.name)>=0 && 'selected'">
         {{ key.name }}
       </li>
@@ -15,16 +15,18 @@
 <script lang='ts'>
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
-import {tagListModel} from '@/models/model-tag';
 
-tagListModel.fetch();
 
 @Component
 export default class Tags extends Vue {
   @Prop() readonly value !: Tag[];
   @Prop(Array) readonly record!: string[];
   selectedTags: string[] = [];
-  tags = tagListModel.tag;
+  tags = this.$store.state.tagList;
+
+  beforeCreate(): void {
+    this.$store.commit('loadTags');
+  }
 
   pushArray(key: string): void {
     const index = this.selectedTags.indexOf(key);
@@ -41,15 +43,15 @@ export default class Tags extends Vue {
 
   addTag(): void {
     const newTag: string = window.prompt('请输入标签名') || '';
+    const nameList = this.tags.map(t => t.name);
     if (newTag == '') {
       window.alert('标签名不能为空');
-    } else if (this.tags.indexOf(newTag) >= 0
+    } else if (nameList.indexOf(newTag) >= 0
     ) {
       window.alert('标签已存在');
       return;
     } else {
-      tagListModel.create(newTag);
-      tagListModel.save();
+      this.$store.commit('createTag', newTag);
     }
   }
 
