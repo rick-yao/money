@@ -64,7 +64,7 @@ export default new Vuex.Store({
     createRecord(context, record: RecordItem) {
       const record2: RecordItem = clone(record);
       record2.date = new Date();
-      context.state.recordList && context.state.recordList.push(record2);
+      context.state.recordList?.push(record2);
       context.commit("saveRecord");
     },
   },
