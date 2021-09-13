@@ -45,12 +45,12 @@ export default class LabelEdit extends Vue {
   }
 
   deleteButton(): void {
-    this.$store.commit('removeTag', this.$store.state.currentTag.index);
+    this.$store.dispatch('removeTag', this.$store.state.currentTag.index);
     this.goPrevious();
   }
 
   updateTag(val: string): void {
-    this.$store.commit('updateTag', {id: this.currentTag.id, name: val});
+    this.$store.dispatch('updateTag', {id: this.currentTag.id, name: val});
   }
 
   // @Watch('inputContent') onInputContentChanged(val: string): void {

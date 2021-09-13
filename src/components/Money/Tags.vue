@@ -51,7 +51,7 @@ export default class Tags extends Vue {
       window.alert('标签已存在');
       return;
     } else {
-      this.$store.commit('createTag', newTag);
+      this.$store.dispatch('createTag', newTag);
     }
   }
 

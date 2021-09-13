@@ -26,44 +26,46 @@ export default new Vuex.Store({
         JSON.stringify(state.recordList)
       );
     },
-    createRecord(state, record: RecordItem) {
-      const record2: RecordItem = clone(record);
-      record2.date = new Date();
-      state.recordList && state.recordList.push(record2);
-      this.commit("saveRecord");
-    },
     loadTags(state) {
       state.tagList = JSON.parse(localStorage.getItem("tagList") || "[]");
     },
     saveTags(state) {
       window.localStorage.setItem("tagList", JSON.stringify(state.tagList));
     },
-    updateTag(state, object: Tag) {
-      const idList = state.tagList.map((t) => t.id);
-      const nameList = state.tagList.map((t) => t.name);
+    setCurrentTag(state, name) {
+      state.currentTag = state.tagList.filter((t) => t.name === name)[0];
+    },
+  },
+  actions: {
+    createTag(context, name: string) {
+      const id = GenerateID();
+      const tmp: Tag = { id: id.toString(), name: name };
+      context.state.tagList.push(tmp);
+      context.commit("saveTags");
+    },
+    removeTag(context, index) {
+      context.state.tagList.splice(index, 1);
+      context.commit("saveTags");
+    },
+    updateTag(context, object: Tag) {
+      const idList = context.state.tagList.map((t) => t.id);
+      const nameList = context.state.tagList.map((t) => t.name);
       const index = idList.findIndex((item) => item === object.id);
       const nameIndex = nameList.findIndex((t) => t === object.name);
       if (index >= 0) {
         if (nameIndex >= 0) {
           window.alert("标签名重复了");
         } else {
-          state.tagList[index].name = object.name;
-          this.commit("saveTags");
+          context.state.tagList[index].name = object.name;
+          context.commit("saveTags");
         }
       }
     },
-    removeTag(state, index) {
-      state.tagList.splice(index, 1);
-      this.commit("saveTags");
-    },
-    createTag(state, name: string) {
-      const id = GenerateID();
-      const tmp: Tag = { id: id.toString(), name: name };
-      state.tagList.push(tmp);
-      this.commit("saveTags");
-    },
-    setCurrentTag(state, name) {
-      state.currentTag = state.tagList.filter((t) => t.name === name)[0];
+    createRecord(context, record: RecordItem) {
+      const record2: RecordItem = clone(record);
+      record2.date = new Date();
+      context.state.recordList && context.state.recordList.push(record2);
+      context.commit("saveRecord");
     },
   },
 });
