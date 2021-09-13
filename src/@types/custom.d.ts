@@ -3,5 +3,5 @@ type RecordItem = {
   selectedTags: string[];
   notes: string;
   number: string;
-  date?: Date;
+  date?: string;
 };
