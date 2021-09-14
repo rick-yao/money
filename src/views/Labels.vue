@@ -26,7 +26,7 @@ import Button from '@/components/Button.vue';
   components: {Button, Icon},
 })
 export default class labels extends Vue {
-  tags = this.$store.state.tagList;
+  tags: Tag[] = this.$store.state.tagList;
 
   beforeCreate(): void {
     this.$store.commit('loadTags');

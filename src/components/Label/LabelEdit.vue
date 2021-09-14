@@ -30,7 +30,7 @@ export default class LabelEdit extends Vue {
 
   created(): void {
     const pathName = this.$route.params.id;
-    const tag = this.$store.state.tagList;
+    const tag: Tag[] = this.$store.state.tagList;
     const index = tag.findIndex(item => item.name === pathName);
     if (index >= 0) {
       this.$store.commit('setCurrentTag', pathName);

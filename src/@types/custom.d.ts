@@ -5,3 +5,7 @@ type RecordItem = {
   number: string;
   date?: string;
 };
+type Tag = {
+  id: string;
+  name: string;
+};

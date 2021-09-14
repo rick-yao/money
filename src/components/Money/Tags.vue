@@ -22,7 +22,7 @@ export default class Tags extends Vue {
   @Prop() readonly value !: Tag[];
   @Prop(Array) readonly record!: string[];
   selectedTags: string[] = [];
-  tags = this.$store.state.tagList;
+  tags: Tag[] = this.$store.state.tagList;
 
   beforeCreate(): void {
     this.$store.commit('loadTags');
