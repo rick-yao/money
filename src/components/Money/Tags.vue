@@ -2,22 +2,22 @@
   <div class="label">
     <div class="tagItem" @click="pushArray(index)"
          v-for="(item,index) in tagHashTableOutPut" :key="item">
-      <div class="iconWrapper">
-        <Icon :class="selectedTags.indexOf(index)>=0 && 'selected'" :name="index"/>
-      </div>
+      <Icon :class="selectedTags.indexOf(index)>=0 && 'selected'" :name="index"/>
       <div>{{ item }}</div>
     </div>
+    <button class="addTag">
+      <Icon name="add" @click="addTag"/>
+      添加标签
+    </button>
   </div>
 </template>
 
 <script lang='ts'>
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
-//todo 序列化标签
 
 @Component
 export default class Tags extends Vue {
-  tagArrayOutPut = [];
   tagHashTableOutPut = {
     'baoxian': '保险',
     'dianfei': '电费',
@@ -81,7 +81,7 @@ export default class Tags extends Vue {
   display: flex;
   flex-wrap: wrap;
 
-  .tagItem {
+  .tagItem, .addTag {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -90,56 +90,17 @@ export default class Tags extends Vue {
     width: 25%;
     padding: 10px 0;
 
-    .iconWrapper {
-      .goPrevious {
-        width: 48px;
-        height: 48px;
-        border-radius: 50%;
-        background: #f5f5f5;
+    .goPrevious {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #f5f5f5;
 
-        &.selected {
-          background: $color-theme;
+      &.selected {
+        background: $color-theme;
 
-        }
       }
     }
   }
 }
-
-//.label {
-//  padding: 16px;
-//
-//  .tags {
-//    display: flex;
-//    flex-direction: row;
-//    align-items: center;
-//
-//    li {
-//      display: flex;
-//      justify-content: center;
-//      margin-right: 3px;
-//      background: #d4d4d4;
-//      width: 40px;
-//      border-radius: 8px 8px;
-//
-//      &.selected {
-//        color: whitesmoke;
-//        background: #999;
-//
-//      }
-//    }
-//  }
-//
-//
-//  .new {
-//    padding-top: 16px;
-//
-//    .add {
-//      color: #999;
-//      border-bottom: 1px solid;
-//      padding: 0 3px;
-//    }
-//  }
-//;
-//}
 </style>
