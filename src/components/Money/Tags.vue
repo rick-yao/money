@@ -1,7 +1,12 @@
 <template>
   <div class="label">
-    <div class="tagItem" @click="pushArray(index)"
+    <div class="tagItem" @click="pushArray(index)" :class="type === '+' && 'selected'"
          v-for="(item,index) in tagHashTableOutPut" :key="item">
+      <Icon :class="selectedTags.indexOf(index)>=0 && 'selected'" :name="index"/>
+      <div>{{ item }}</div>
+    </div>
+    <div class="tagItem" @click="pushArray(index) " :class="type === '-' && 'selected'"
+         v-for="(item,index) in tagHashTableInPut" :key="item">
       <Icon :class="selectedTags.indexOf(index)>=0 && 'selected'" :name="index"/>
       <div>{{ item }}</div>
     </div>
@@ -29,12 +34,16 @@ export default class Tags extends Vue {
     'xiche': '洗车',
   };
   tagHashTableInPut = {
+    'salary': '工资',
     'hongbao': '红包',
-
+    'claim': '报销',
+    'finance': '理财',
+    'parttime': '兼职'
   };
 
   @Prop() readonly value !: Tag[];
   @Prop(Array) readonly record!: string[];
+  @Prop(String) readonly type !: string;
   selectedTags: string[] = [];
   tags: Tag[] = this.$store.state.tagList;
 
@@ -90,6 +99,10 @@ export default class Tags extends Vue {
     width: 25%;
     padding: 10px 0;
 
+    &.selected {
+      display: none;
+    }
+
     .goPrevious {
       width: 48px;
       height: 48px;
@@ -102,5 +115,7 @@ export default class Tags extends Vue {
       }
     }
   }
+
+
 }
 </style>

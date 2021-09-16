@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <Types :value.sync="record.type"/>
-    <Tags :value.sync="tags" @update:record="updateTags" class="tags"/>
+    <Tags :value.sync="tags" @update:record="updateTags" class="tags" :type="record.type"/>
     <Notes :value.sync="record.notes" name="备注" place-holder="请在此处输入备注"/>
     <NumberPad :value.sync="record.number" @update:finalResult="saveRecord"/>
   </div>
