@@ -1,93 +1,12 @@
 <template>
   <div class="label">
-    <!--    <ul class="tags">-->
-    <!--      <li v-for='key in this.tags' :key="key.id" @click="pushArray(key.name)"-->
-    <!--          :class="selectedTags.indexOf(key.name)>=0 && 'selected'">-->
-    <!--        {{ key.name }}-->
-    <!--      </li>-->
-
-    <!--    </ul>-->
-    <div class="tagItem">
+    <div class="tagItem" @click="pushArray(index)"
+         v-for="(item,index) in tagHashTableOutPut" :key="item">
       <div class="iconWrapper">
-        <Icon name="baoxian"/>
+        <Icon :class="selectedTags.indexOf(index)>=0 && 'selected'" :name="index"/>
       </div>
-      <div>保险</div>
+      <div>{{ item }}</div>
     </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <div class="tagItem">
-      <div class="iconWrapper">
-        <Icon name="baoxian"/>
-      </div>
-      <div>保险</div>
-    </div>
-    <!--    <div class="new">-->
-    <!--      <button class="add" @click="addTag">新增标签</button>-->
-    <!--    </div>-->
   </div>
 </template>
 
@@ -98,6 +17,22 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
+  tagArrayOutPut = [];
+  tagHashTableOutPut = {
+    'baoxian': '保险',
+    'dianfei': '电费',
+    'food': '食物',
+    'fumu': '父母',
+    'huafei': '话费',
+    'shenghuojiaofei': '生活缴费',
+    'shoujihao': '手机号',
+    'xiche': '洗车',
+  };
+  tagHashTableInPut = {
+    'hongbao': '红包',
+
+  };
+
   @Prop() readonly value !: Tag[];
   @Prop(Array) readonly record!: string[];
   selectedTags: string[] = [];
@@ -107,11 +42,12 @@ export default class Tags extends Vue {
     this.$store.commit('loadTags');
   }
 
+//todo 添加标签功能
   pushArray(key: string): void {
-    const index = this.selectedTags.indexOf(key);
-    if (this.selectedTags.indexOf(key) >= 0) {
-      this.selectedTags.splice(index, 1);
+    if (this.selectedTags.length >= 0 && this.selectedTags.indexOf(key) >= 0) {
+      this.selectedTags = [];
     } else {
+      this.selectedTags = [];
       this.selectedTags.push(key);
     }
   }
@@ -160,6 +96,11 @@ export default class Tags extends Vue {
         height: 48px;
         border-radius: 50%;
         background: #f5f5f5;
+
+        &.selected {
+          background: $color-theme;
+
+        }
       }
     }
   }
