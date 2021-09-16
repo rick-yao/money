@@ -5,7 +5,7 @@
       <div :class="this.value==='-'? 'selected' :'' " @click="selectType('-')">支出</div>
       <div :class="this.value==='+'? 'selected' :'' " @click="selectType('+')">收入</div>
     </div>
-    <button>取消</button>
+    <button @click="goBack">取消</button>
   </div>
 </template>
 
@@ -19,6 +19,9 @@ import {Component} from 'vue-property-decorator';
   }
 })
 export default class Types extends Vue {
+  goBack(): void {
+    this.$router.push('/labels');
+  }
 
   selectType(types: string): void {
     if (types !== '+' && types !== '-') {
