@@ -74,21 +74,26 @@ export default class NumberPad extends Vue {
 </script>
 
 <style lang='scss' scoped>
+@import "~@/views/style/global.scss";
+
 .numberPad {
   display: flex;
   flex-direction: column;
+  box-shadow: 0 0 3px #f5f5f5;
 
   .output {
     font-family: monospace;
     font-size: 36px;
-    padding: 9px 16px;
+    padding: 3px 16px;
     text-align: right;
   }
 
   .inputPad {
-    background: linear-gradient(to bottom right, #f2f2f2, #8b8b8b);
+    background: linear-gradient(to bottom right, #f2f2f2, $color-theme);
+    box-shadow: 0 0 3px #f5f5f5;
 
     button {
+      box-shadow: 0 0 3px #f5f5f5;
       color: black;
       height: 64px;
       width: 25%;

@@ -1,10 +1,10 @@
 <template>
-  <Layout :content-prefix="layout">
-    <Tags :value.sync="tags" @update:record="updateTags"/>
-    <Notes :value.sync="record.notes" name="备注" place-holder="请在此处输入备注"/>
+  <div class="layout">
     <Types :value.sync="record.type"/>
+    <Tags :value.sync="tags" @update:record="updateTags" class="tags"/>
+    <Notes :value.sync="record.notes" name="备注" place-holder="请在此处输入备注"/>
     <NumberPad :value.sync="record.number" @update:finalResult="saveRecord"/>
-  </Layout>
+  </div>
 </template>
 
 <script lang="ts">
@@ -46,10 +46,13 @@ export default class Money extends Vue {
 </script>
 
 <style lang="scss">
-.layout-content {
+.layout {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  .tags {
+  }
 }
 
 </style>

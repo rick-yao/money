@@ -28,12 +28,15 @@ export default class Notes extends Vue {
 </script>
 
 <style lang='scss' scoped>
+@import "~@/views/style/global.scss";
+
 .notes {
   label {
     display: flex;
     align-items: center;
     font-size: 16px;
-    padding: 20px 0;
+    padding: 2px 0;
+    box-shadow: 0 0 3px #f5f5f5;
 
     span {
       padding: 0 20px;

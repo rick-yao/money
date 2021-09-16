@@ -1,21 +1,100 @@
 <template>
   <div class="label">
-    <ul class="tags">
-      <li v-for='key in this.tags' :key="key.id" @click="pushArray(key.name)"
-          :class="selectedTags.indexOf(key.name)>=0 && 'selected'">
-        {{ key.name }}
-      </li>
-    </ul>
-    <div class="new">
-      <button class="add" @click="addTag">新增标签</button>
+    <!--    <ul class="tags">-->
+    <!--      <li v-for='key in this.tags' :key="key.id" @click="pushArray(key.name)"-->
+    <!--          :class="selectedTags.indexOf(key.name)>=0 && 'selected'">-->
+    <!--        {{ key.name }}-->
+    <!--      </li>-->
+
+    <!--    </ul>-->
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
     </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <div class="tagItem">
+      <div class="iconWrapper">
+        <Icon name="baoxian"/>
+      </div>
+      <div>保险</div>
+    </div>
+    <!--    <div class="new">-->
+    <!--      <button class="add" @click="addTag">新增标签</button>-->
+    <!--    </div>-->
   </div>
 </template>
 
 <script lang='ts'>
 import Vue from 'vue';
 import {Component, Prop, Watch} from 'vue-property-decorator';
-
+//todo 序列化标签
 
 @Component
 export default class Tags extends Vue {
@@ -60,41 +139,66 @@ export default class Tags extends Vue {
 </script>
 
 <style lang='scss' scoped>
+@import "~@/views/style/global.scss";
 
 .label {
-  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
 
-  .tags {
+  .tagItem {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
+    flex-wrap: nowrap;
+    width: 25%;
+    padding: 10px 0;
 
-    li {
-      display: flex;
-      justify-content: center;
-      margin-right: 3px;
-      background: #d4d4d4;
-      width: 40px;
-      border-radius: 8px 8px;
-
-      &.selected {
-        color: whitesmoke;
-        background: #999;
-
+    .iconWrapper {
+      .goPrevious {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #f5f5f5;
       }
     }
   }
-
-
-  .new {
-    padding-top: 16px;
-
-    .add {
-      color: #999;
-      border-bottom: 1px solid;
-      padding: 0 3px;
-    }
-  }
-;
 }
+
+//.label {
+//  padding: 16px;
+//
+//  .tags {
+//    display: flex;
+//    flex-direction: row;
+//    align-items: center;
+//
+//    li {
+//      display: flex;
+//      justify-content: center;
+//      margin-right: 3px;
+//      background: #d4d4d4;
+//      width: 40px;
+//      border-radius: 8px 8px;
+//
+//      &.selected {
+//        color: whitesmoke;
+//        background: #999;
+//
+//      }
+//    }
+//  }
+//
+//
+//  .new {
+//    padding-top: 16px;
+//
+//    .add {
+//      color: #999;
+//      border-bottom: 1px solid;
+//      padding: 0 3px;
+//    }
+//  }
+//;
+//}
 </style>

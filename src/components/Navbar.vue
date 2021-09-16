@@ -22,6 +22,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import '~@/views/style/global.scss';
+
 nav {
   display: flex;
   box-shadow: 0 0 5px rgb(0, 0, 0, 0.25);
@@ -41,7 +43,8 @@ nav {
   }
 
   .selected {
-    color: darkorange;
+    color: $color-theme;
   }
+
 }
 </style>

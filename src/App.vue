@@ -9,6 +9,6 @@
 @import '~@/views/style/global.scss';
 
 body {
-  background: #f5f5f5;
+  background: white;
 }
 </style>
