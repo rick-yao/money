@@ -2,8 +2,10 @@
   <div class="layout">
     <Types :value.sync="record.type"/>
     <Tags :value.sync="tags" @update:record="updateTags" class="tags" :type="record.type"/>
-    <Notes :value.sync="record.notes" name="备注" place-holder="请在此处输入备注"/>
-    <NumberPad :value.sync="record.number" @update:finalResult="saveRecord"/>
+    <div class="fixedLayout">
+      <Notes :value.sync="record.notes" name="备注" place-holder="请在此处输入备注"/>
+      <NumberPad :value.sync="record.number" @update:finalResult="saveRecord"/>
+    </div>
   </div>
 </template>
 
@@ -50,9 +52,15 @@ export default class Money extends Vue {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+  position: relative;
 
-  .tags {
+  .fixedLayout {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw
   }
+
 }
 
 </style>

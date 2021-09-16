@@ -51,27 +51,21 @@ export default class Types extends Vue {
   align-items: center;
   max-height: 20px;
   background: $color-theme;
-  padding: 20px;
+  padding: 30px 20px;
 
   .selectPad {
     display: flex;
     font-size: 20px;
 
-
     > div {
       padding: 0 10px;
       position: relative;
-
-
     }
   }
 
   .idle {
     width: 32px;
     height: 24px;
-  }
-
-  button {
   }
 }
 

@@ -51,7 +51,6 @@ export default class Tags extends Vue {
     this.$store.commit('loadTags');
   }
 
-//todo 添加标签功能
   pushArray(key: string): void {
     if (this.selectedTags.length >= 0 && this.selectedTags.indexOf(key) >= 0) {
       this.selectedTags = [];
@@ -65,6 +64,7 @@ export default class Tags extends Vue {
     this.$emit('update:record', val);
   }
 
+//todo 添加标签功能
   addTag(): void {
     const newTag: string = window.prompt('请输入标签名') || '';
     const nameList = this.tags.map(t => t.name);
@@ -98,6 +98,7 @@ export default class Tags extends Vue {
     flex-wrap: nowrap;
     width: 25%;
     padding: 10px 0;
+    font-size: 12px;
 
     &.selected {
       display: none;
@@ -111,7 +112,6 @@ export default class Tags extends Vue {
 
       &.selected {
         background: $color-theme;
-
       }
     }
   }
