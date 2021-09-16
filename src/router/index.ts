@@ -5,7 +5,6 @@ import Labels from "@/views/Labels.vue";
 import Statistics from "@/views/Statistics.vue";
 import NotFound from "@/views/NotFound.vue";
 import LabelEdit from "@/components/Label/LabelEdit.vue";
-import recordPage from "@/views/recordPage.vue";
 
 Vue.use(VueRouter);
 
@@ -24,7 +23,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/statistics",
-    component: recordPage,
+    component: Statistics,
   },
   {
     path: "/labels/edit/:id",

@@ -83,9 +83,10 @@ export default class NumberPad extends Vue {
 
   .output {
     font-family: monospace;
-    font-size: 36px;
+    font-size: 24px;
     padding: 3px 16px;
     text-align: right;
+    background: #f5f5f5;
   }
 
   .inputPad {

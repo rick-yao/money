@@ -1,7 +1,10 @@
 <template>
   <div class="notes">
     <label>
-      <span>{{ this.name }}</span>
+      <span>
+        <Icon name="note"/>
+        {{ this.name }}
+      </span>
       <input type="text" :placeholder="this.placeHolder" :value="value" @input="onNoteChanged($event.target.value)">
     </label>
   </div>
@@ -39,7 +42,8 @@ export default class Notes extends Vue {
     box-shadow: 0 0 3px #f5f5f5;
 
     span {
-      padding: 0 20px;
+      padding-right: 20px;
+      padding-left: 10px;
     }
 
     input {
