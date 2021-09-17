@@ -42,6 +42,9 @@ export default class Money extends Vue {
   }
 
   saveRecord(): void {
+    if (this.record.selectedTags.length === 0) {
+      this.record.selectedTags.push('empty');
+    }
     this.$store.dispatch('createRecord', this.record);
   }
 }

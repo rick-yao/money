@@ -4,7 +4,7 @@
     <div class="overView">
       <div class="date">
         <div>2021年</div>
-        <select id="day" v-model="selected">
+        <select id="day" v-model="selectedMonth">
           <option :value="index" v-for="(item, index) in dayList" :key="index">{{ item }}
           </option>
           <Icon name="arrow"/>
@@ -49,7 +49,7 @@ import clone from '@/lib/clone';
 })
 export default class labels extends Vue {
   tagHashTable = this.$store.state.tagHashTable;
-  selected = dayjs().format('M');
+  selectedMonth = dayjs().format('M');
   value = '-';
   dayList = {
     1: '1月',
@@ -66,6 +66,10 @@ export default class labels extends Vue {
     12: '12月'
   };
 
+  mounted() {
+    console.log(this.$store.getters.getRecord({type: '-', selector: 'W'}));
+  }
+
   beautify(day: string): string {
     const now = dayjs();
     if (dayjs(day).isSame(now, 'day')) {
@@ -81,9 +85,8 @@ export default class labels extends Vue {
     return this.$store.state.recordList;
   }
 
-  get result(): { title: string, items: RecordItem[] }[] {
+  get result(): any {
     const {recordList} = this;
-    console.log(recordList);
     const n = clone(recordList
         // .filter(t => dayjs(t.date).format('M') === this.selected)
         .sort((a, b) =>

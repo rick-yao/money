@@ -71,39 +71,71 @@ export default new Vuex.Store({
     },
   },
   getters: {
-    cleanResult:
+    getRecord:
       (state) =>
-      ([selector, type]: [string, string]) => {
+      ({ type, selector }: { type: string; selector: string }) => {
         const recordList = state.recordList;
-        if (!recordList) {
-          console.log("无记录");
-        }
-        // const selectorTable = {
-        //   W:'W',
-        //   M:'M'
-        // }
+        const selectHastTable = {
+          M: "YYYY-MM",
+          Y: "YYYY",
+        };
+        const queryHashTable = {
+          M: "month" as const,
+          Y: "year" as const,
+        };
         const n = clone(
           recordList
             .filter((t) => t.type === type)
-            // .filter((t) => dayjs(t.date).format("M") === selector)
             .sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
         );
-        const hashTable = [
-          { title: dayjs(n[0].date).format("YYYY-M-D"), items: [n[0]] },
-        ];
-        for (let i = 1; i <= n.length - 1; i++) {
-          const current = n[i];
-          const last = hashTable[hashTable.length - 1];
-          if (dayjs(current.date).isSame(last.title, "day")) {
-            last.items.push(current);
-          } else {
-            hashTable.push({
-              title: dayjs(current.date).format("YYYY-M-D"),
-              items: [current],
-            });
+        if (selector === "M" || selector === "Y") {
+          const hashTable = [
+            {
+              title: dayjs(n[0].date).format(selectHastTable[selector]),
+              items: [n[0]],
+            },
+          ];
+          for (let i = 1; i <= n.length - 1; i++) {
+            const current = n[i];
+            const last = hashTable[hashTable.length - 1];
+            if (
+              dayjs(current.date).isSame(last.title, queryHashTable[selector])
+            ) {
+              last.items.push(current);
+            } else {
+              hashTable.push({
+                title: dayjs(current.date).format(selectHastTable[selector]),
+                items: [current],
+              });
+            }
           }
+          return hashTable;
         }
-        return hashTable;
+        if (selector === "W") {
+          const tmp = n.filter((t) =>
+            dayjs().subtract(7, "day").isBefore(dayjs(t.date))
+          );
+          const hashTable = [
+            {
+              title: dayjs(tmp[0].date).format("YYYY-MM-DD"),
+              items: [tmp[0]],
+            },
+          ];
+
+          for (let i = 1; i <= tmp.length - 1; i++) {
+            const current = tmp[i];
+            const last = hashTable[hashTable.length - 1];
+            if (dayjs(current.date).isSame(last.title, "day")) {
+              last.items.push(current);
+            } else {
+              hashTable.push({
+                title: dayjs(current.date).format("YYYY-MM-DD"),
+                items: [current],
+              });
+            }
+          }
+          return hashTable;
+        }
       },
   },
   actions: {
