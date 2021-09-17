@@ -12,11 +12,11 @@
       </div>
       <div class="displayValue">
         <div>收入</div>
-        <div>0.00</div>
+        <div>{{ totalIncome }}</div>
       </div>
       <div class="displayValue">
         <div>支出</div>
-        <div>0.00</div>
+        <div>{{ totalOutcome }}</div>
       </div>
     </div>
     <ul class="displayItem">
@@ -66,8 +66,29 @@ export default class labels extends Vue {
     12: '12月'
   };
 
-  mounted() {
-    console.log(this.$store.getters.getRecord({type: '-', selector: 'W'}));
+  get totalIncome() {
+    const n = this.$store.getters.getRecord({type: '+', selector: 'M'});
+    const index = n.findIndex(t =>
+        dayjs(t.title).format('M') === this.selectedMonth.toString()
+    );
+    let finalResult = 0;
+    for (let i = 0; i < n[index].items.length; i++) {
+      finalResult = parseFloat(n[index].items[i].number) + finalResult;
+      console.log(i);
+    }
+    return finalResult;
+  }
+
+  get totalOutcome() {
+    const n = this.$store.getters.getRecord({type: '-', selector: 'M'});
+    const index = n.findIndex(t =>
+        dayjs(t.title).format('M') === this.selectedMonth.toString()
+    );
+    let finalResult = 0;
+    for (let i = 0; i < n[index].items.length; i++) {
+      finalResult = parseFloat(n[index].items[i].number) + finalResult;
+    }
+    return finalResult;
   }
 
   beautify(day: string): string {

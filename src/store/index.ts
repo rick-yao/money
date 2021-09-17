@@ -89,7 +89,7 @@ export default new Vuex.Store({
             .sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
         );
         if (selector === "M" || selector === "Y") {
-          const hashTable = [
+          const hashTable: { title: string; items: RecordItem[] }[] = [
             {
               title: dayjs(n[0].date).format(selectHastTable[selector]),
               items: [n[0]],
