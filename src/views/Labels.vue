@@ -19,7 +19,7 @@
         <div>{{ totalOutcome }}</div>
       </div>
     </div>
-    <ul class="displayItem">
+    <ul class="displayItem" :class="result==={} && 'hidden'">
       <li v-for="(items, index) in result" :key="index">
         <h3>{{ beautify(items.title) }}</h3>
         <ul>
@@ -66,7 +66,7 @@ export default class labels extends Vue {
     12: '12月'
   };
 
-  get totalIncome() {
+  get totalIncome(): number | undefined {
     const n = this.$store.getters.getRecord({type: '+', selector: 'M'});
     const index = n.findIndex(t =>
         dayjs(t.title).format('M') === this.selectedMonth.toString()
@@ -74,12 +74,11 @@ export default class labels extends Vue {
     let finalResult = 0;
     for (let i = 0; i < n[index].items.length; i++) {
       finalResult = parseFloat(n[index].items[i].number) + finalResult;
-      console.log(i);
     }
     return finalResult;
   }
 
-  get totalOutcome() {
+  get totalOutcome(): number | undefined {
     const n = this.$store.getters.getRecord({type: '-', selector: 'M'});
     const index = n.findIndex(t =>
         dayjs(t.title).format('M') === this.selectedMonth.toString()
@@ -109,7 +108,6 @@ export default class labels extends Vue {
   get result(): any {
     const {recordList} = this;
     const n = clone(recordList
-        // .filter(t => dayjs(t.date).format('M') === this.selected)
         .sort((a, b) =>
             dayjs(b.date).valueOf() - dayjs(a.date).valueOf()));
     const hashTable = [{title: dayjs(n[0].date).format('YYYY-M-D'), items: [n[0]]}];
@@ -198,6 +196,10 @@ export default class labels extends Vue {
   }
 
   .displayItem {
+    &.hidden {
+      display: none;
+    }
+
     > li {
       padding: 10px 0;
 
