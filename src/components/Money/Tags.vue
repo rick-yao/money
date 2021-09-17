@@ -23,23 +23,8 @@ import {Component, Prop, Watch} from 'vue-property-decorator';
 
 @Component
 export default class Tags extends Vue {
-  tagHashTableOutPut = {
-    'baoxian': '保险',
-    'dianfei': '电费',
-    'food': '食物',
-    'fumu': '父母',
-    'huafei': '话费',
-    'shenghuojiaofei': '生活缴费',
-    'shoujihao': '手机号',
-    'xiche': '洗车',
-  };
-  tagHashTableInPut = {
-    'salary': '工资',
-    'hongbao': '红包',
-    'claim': '报销',
-    'finance': '理财',
-    'parttime': '兼职'
-  };
+  tagHashTableOutPut = this.$store.state.tagHashTableOutPut;
+  tagHashTableInPut = this.$store.state.tagHashTableInPut;
 
   @Prop() readonly value !: Tag[];
   @Prop(Array) readonly record!: string[];

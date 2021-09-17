@@ -1,18 +1,38 @@
 <template>
-  <layout>
-    <router-view/>
-    <div class="tagList">
-      <router-link
-          class="item"
-          v-for="tag in tags"
-          :key="tag.id"
-          :to="`/labels/edit/${tag.name}`"
-      >
-        <span>{{ tag.name }}</span>
-        <Icon name="right"/>
-      </router-link>
+  <layout class="contentWrapper">
+    <div class="title">轻松记账</div>
+    <div class="overView">
+      <div class="date">
+        <div>2021年</div>
+        <select id="day" v-model="selected">
+          <option :value="index" v-for="(item, index) in dayList" :key="index">{{ item }}
+          </option>
+          <Icon name="arrow"/>
+        </select>
+      </div>
+      <div class="displayValue">
+        <div>收入</div>
+        <div>0.00</div>
+      </div>
+      <div class="displayValue">
+        <div>支出</div>
+        <div>0.00</div>
+      </div>
     </div>
-    <Button button-name="新建标签" @click="addTag"></Button>
+    <ul class="displayItem">
+      <li v-for="(items, index) in result" :key="index">
+        <h3>{{ beautify(items.title) }}</h3>
+        <ul>
+          <li class="itemList" v-for="i in items.items" :key="i.date">
+            <div class="contentName">
+              <Icon :name="i.selectedTags.toString()"/>
+              <div>{{ tagHashTable[i.selectedTags.toString()] }}</div>
+            </div>
+            <div>{{ i.number }}</div>
+          </li>
+        </ul>
+      </li>
+    </ul>
   </layout>
 </template>
 
@@ -21,64 +41,168 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Icon from '@/components/Icon.vue';
 import Button from '@/components/Button.vue';
+import dayjs from 'dayjs';
+import clone from '@/lib/clone';
 
 @Component({
   components: {Button, Icon},
 })
 export default class labels extends Vue {
-  tags: Tag[] = this.$store.state.tagList;
+  tagHashTable = this.$store.state.tagHashTable;
+  selected = dayjs().format('M');
+  value = '-';
+  dayList = {
+    1: '1月',
+    2: '2月',
+    3: '3月',
+    4: '4月',
+    5: '5月',
+    6: '6月',
+    7: '7月',
+    8: '8月',
+    9: '9月',
+    10: '10月',
+    11: '11月',
+    12: '12月'
+  };
 
-  beforeCreate(): void {
-    this.$store.commit('loadTags');
+  beautify(day: string): string {
+    const now = dayjs();
+    if (dayjs(day).isSame(now, 'day')) {
+      return '今天';
+    } else if (dayjs(day).isSame(now.subtract(1, 'day'), 'day')) {
+      return '昨天';
+    } else {
+      return day;
+    }
   }
 
-  addTag(): void {
-    const newTag: string = window.prompt('请输入标签名') || '';
-    const nameList = this.tags.map(t => t.name);
-    if (newTag == '') {
-      window.alert('标签名不能为空');
-    } else if (nameList.indexOf(newTag) >= 0
-    ) {
-      window.alert('标签已存在');
-      return;
-    } else {
-      this.$store.dispatch('createTag', newTag);
+  get recordList(): RecordItem[] {
+    return this.$store.state.recordList;
+  }
+
+  get result(): { title: string, items: RecordItem[] }[] {
+    const {recordList} = this;
+    console.log(recordList);
+    const n = clone(recordList
+        // .filter(t => dayjs(t.date).format('M') === this.selected)
+        .sort((a, b) =>
+            dayjs(b.date).valueOf() - dayjs(a.date).valueOf()));
+    const hashTable = [{title: dayjs(n[0].date).format('YYYY-M-D'), items: [n[0]]}];
+    for (let i = 1; i <= n.length - 1; i++) {
+      const current = n[i];
+      const last = hashTable[hashTable.length - 1];
+      if (dayjs(current.date).isSame(last.title, 'day')) {
+        last.items.push(current);
+      } else {
+        hashTable.push({title: dayjs(current.date).format('YYYY-M-D'), items: [current]});
+      }
     }
+    return hashTable;
+  }
+
+  beforeCreate(): void {
+    this.$store.commit('loadRecords');
   }
 }
 </script>
 
 <style lang="scss" scoped>
-.tagList {
-  background: white;
+@import "~@/views/style/global.scss";
+
+.contentWrapper {
   display: flex;
   flex-direction: column;
-  font-size: 16px;
-  padding-left: 8px;
 
-  .item {
+  .title {
+    height: 60px;
+    text-align: center;
+    line-height: 60px;
+    background: $color-theme;
+    font-size: 26px;
+  }
+
+  .overView {
     display: flex;
-    justify-content: space-between;
-    padding: 10px 5px 10px 0;
-    border-bottom: 1px solid #eeeef0;
+    background: $color-theme;
 
-    svg {
-      width: 24px;
-      height: 24px;
-      color: #666;
+    .date {
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-left: 20px;
+
+      div:first-child {
+        color: #8c7d45;
+        font-size: 8px;
+      }
+
+      select {
+        border: none;
+        font-size: 24px;
+        border-right: 1px solid black;
+        background: inherit;
+      }
+    }
+
+    .displayValue {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-left: 40px;
+      padding-right: 20px;
+
+      div:first-child {
+        font-size: 8px;
+        color: #8c7d45;
+
+      }
+
+      div:last-child {
+        font-size: 16px;
+      }
     }
   }
-}
 
-.addTag {
-  background: #767676;
-  color: white;
-  padding: 8px 17px;
-  border-radius: 4px;
+  .recordList {
+    .recordItem {
+      display: block;
 
-  &-wrapper {
-    padding: 44px 0;
-    text-align: center;
+    }
+  }
+
+  .displayItem {
+    > li {
+      padding: 10px 0;
+
+      h3 {
+        padding-left: 5px;
+      }
+
+      div:last-child {
+        padding-right: 5px;
+      }
+
+      .itemList {
+        display: flex;
+        justify-content: space-between;
+        padding: 3px 0;
+
+        .contentName {
+          display: flex;
+          align-items: center;
+          padding-left: 10px;
+
+          .goPrevious {
+            width: 40px;
+            height: 40px;
+            padding-right: 3px;
+          }
+        }
+      }
+    }
   }
 }
 </style>
