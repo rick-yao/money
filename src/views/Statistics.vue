@@ -15,7 +15,7 @@
       <div :class="value === '-' && 'hide' ">总收入: ¥{{ totalNumber }}</div>
     </div>
     <div class="chart">
-      <DisplayChart/>
+      <DisplayChart :type.sync="value" :selector.sync="selectedDisplay"/>
     </div>
     <ul class="displayItem">
       <li v-for="(items, index) in result" :key="index">
@@ -52,8 +52,6 @@ export default class Statistics extends Vue {
       this.selectedDisplay = 'W';
     } else if (text === '月') {
       this.selectedDisplay = 'M';
-    } else if (text === '天') {
-      this.selectedDisplay = 'D';
     }
   }
 
