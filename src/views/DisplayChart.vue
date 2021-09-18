@@ -35,6 +35,9 @@ export default class DisplayChart extends Vue {
   }
 
   get result(): any {
+    if (this.recordList.length === 0) {
+      return [];
+    }
     const recordList = this.recordList;
     if (!recordList) {
       return {};
@@ -103,13 +106,6 @@ export default class DisplayChart extends Vue {
 
   }
 
-  // get dataSet() {
-  //   if (this.selector === 'M') {
-  //
-  //   }
-  //
-  // }
-
   get xSelected(): string[] {
     if (this.selector === 'M') {
       let n: string[] = [];
@@ -127,6 +123,13 @@ export default class DisplayChart extends Vue {
   }
 
   get listedNumber(): number[] {
+    if (this.result.length === 0) {
+      if (this.selector === "W") {
+        return [0, 0, 0, 0, 0, 0, 0]
+      } else {
+        return [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+      }
+    }
     const tmp = clone(this.xSelected);
     const x = tmp.reverse();
     const {result} = this;
