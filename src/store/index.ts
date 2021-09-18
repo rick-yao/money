@@ -74,6 +74,9 @@ export default new Vuex.Store({
     getRecord:
       (state) =>
       ({ type, selector }: { type: string; selector: string }) => {
+        if (state.recordList.length === 0) {
+          return 0;
+        }
         const recordList = state.recordList;
         const selectHastTable = {
           M: "YYYY-MM",

@@ -56,10 +56,18 @@ export default class Statistics extends Vue {
   }
 
   get record() {
-    return this.$store.getters.getRecord({type: this.value, selector: this.selectedDisplay});
+    let x = this.$store.getters.getRecord({type: this.value, selector: this.selectedDisplay});
+    if (x === 0) {
+      return 0;
+    } else {
+      return x;
+    }
   }
 
   get totalNumber(): number {
+    if (this.record === 0) {
+      return 0;
+    }
     const n = this.record[0].items;
     let m = 0;
     for (let i = 0; i < n.length; i++) {
@@ -88,6 +96,9 @@ export default class Statistics extends Vue {
   }
 
   get result(): any {
+    if (this.recordList.length === 0) {
+      return [];
+    }
     const {recordList} = this;
     if (!recordList) {
       return [];

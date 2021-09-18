@@ -70,6 +70,9 @@ export default class labels extends Vue {
   };
 
   get totalIncome(): number | undefined {
+    if (this.result.length === 0) {
+      return 0;
+    }
     const n = this.$store.getters.getRecord({type: '+', selector: 'M'});
     const index = n.findIndex(t =>
         dayjs(t.title).format('M') === this.selectedMonth.toString()
@@ -85,6 +88,9 @@ export default class labels extends Vue {
   }
 
   get totalOutcome(): number | undefined {
+    if (this.result.length === 0) {
+      return 0;
+    }
     const n = this.$store.getters.getRecord({type: '-', selector: 'M'});
     const index = n.findIndex(t =>
         dayjs(t.title).format('M') === this.selectedMonth.toString()
@@ -118,10 +124,11 @@ export default class labels extends Vue {
   }
 
   get result(): any {
-    const index = this.recordList.findIndex(t => dayjs(t.date).format('M') === this.selectedMonth.toString());
-    if (this.recordList === []) {
-      return null;
-    } else if (index < 0) {
+    if (this.recordList.length === 0) {
+      return [];
+    } else if (
+        this.recordList.findIndex(t => dayjs(t.date).format('M') === this.selectedMonth.toString())
+    ) {
       return null;
     }
     const {recordList} = this;
