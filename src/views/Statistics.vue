@@ -7,13 +7,12 @@
       </select>
     </div>
     <div class="selection">
-      <div>周</div>
-      <div>月</div>
-      <div>年</div>
+      <div @click="selectDisplay" :class="selectedDisplay === 'W' && 'selected'">周</div>
+      <div @click="selectDisplay" :class="selectedDisplay === 'M' && 'selected'">月</div>
     </div>
     <div class="basicStatistics">
-      <div>总支出:00000</div>
-      <div>平均值:00</div>
+      <div :class="value === '+' && 'hide' ">总支出: ¥{{ totalNumber }}</div>
+      <div :class="value === '-' && 'hide' ">总收入: ¥{{ totalNumber }}</div>
     </div>
     <div class="chart">
       <DisplayChart/>
@@ -22,7 +21,7 @@
       <li v-for="(items, index) in result" :key="index">
         <h3>{{ beautify(items.title) }}</h3>
         <ul>
-          <li class="itemList" v-for="i in items.items" :key="i.number">
+          <li class="itemList" v-for="i in items.items" :key="i.date">
             <div>{{ i.date }}</div>
             <div>${{ i.number }}</div>
           </li>
@@ -45,6 +44,31 @@ import DisplayChart from '@/views/DisplayChart.vue';
 })
 export default class Statistics extends Vue {
   value = '-';
+  selectedDisplay = 'W';
+
+  selectDisplay(e): void {
+    const text = e.target.innerHTML;
+    if (text === '周') {
+      this.selectedDisplay = 'W';
+    } else if (text === '月') {
+      this.selectedDisplay = 'M';
+    } else if (text === '天') {
+      this.selectedDisplay = 'D';
+    }
+  }
+
+  get record() {
+    return this.$store.getters.getRecord({type: this.value, selector: this.selectedDisplay});
+  }
+
+  get totalNumber(): number {
+    const n = this.record[0].items;
+    let m = 0;
+    for (let i = 0; i < n.length; i++) {
+      m = parseFloat(n[i].number) + m;
+    }
+    return m;
+  }
 
   beforeCreate(): void {
     this.$store.commit('loadRecords');
@@ -117,6 +141,11 @@ export default class Statistics extends Vue {
   justify-content: center;
   padding-bottom: 10px;
 
+  .selected {
+    background: black;
+    color: white;
+  }
+
   div:first-child {
     border: 1px solid black;
     border-top-left-radius: 10px;
@@ -129,13 +158,8 @@ export default class Statistics extends Vue {
     border-bottom-right-radius: 10px;
   }
 
-  div:nth-child(2) {
-    border-top: 1px solid black;
-    border-bottom: 1px solid black;
-  }
-
   div {
-    padding: 2px 50px;
+    padding: 2px 70px;
   }
 }
 
@@ -145,20 +169,14 @@ export default class Statistics extends Vue {
   color: #7d7d7d;
   box-shadow: 0 0 3px #7d7d7d;
 
-  div:first-child {
-    padding-top: 10px;
-    font-size: 16px;
-  }
-
-  div:last-child {
-    padding-bottom: 10px;
-    font-size: 6px;
+  .hide {
+    display: none;
   }
 
   div {
-    padding: 1px 20px;
+    font-size: 16px;
+    padding: 10px 20px 5px 20px;
   }
-
 }
 
 .displayItem {

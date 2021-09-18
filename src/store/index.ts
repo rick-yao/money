@@ -3,7 +3,6 @@ import Vuex from "vuex";
 import clone from "@/lib/clone";
 import GenerateID from "@/lib/IdGenerator";
 import dayjs from "dayjs";
-import selector from "echarts/types/src/component/brush/selector";
 
 type Tag = {
   id: string;
