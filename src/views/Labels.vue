@@ -19,7 +19,7 @@
         <div>{{ totalOutcome }}</div>
       </div>
     </div>
-    <ul class="displayItem" :class="result==={} && 'hidden'">
+    <ul class="displayItem" :class="result === null && 'hidden'">
       <li v-for="(items, index) in result" :key="index">
         <h3>{{ beautify(items.title) }}</h3>
         <ul>
@@ -33,6 +33,9 @@
         </ul>
       </li>
     </ul>
+    <div class="notificationWrapper" :class="result === null && 'showNotification'">
+      本月暂无记录
+    </div>
   </layout>
 </template>
 
@@ -71,6 +74,9 @@ export default class labels extends Vue {
     const index = n.findIndex(t =>
         dayjs(t.title).format('M') === this.selectedMonth.toString()
     );
+    if (index < 0) {
+      return 0;
+    }
     let finalResult = 0;
     for (let i = 0; i < n[index].items.length; i++) {
       finalResult = parseFloat(n[index].items[i].number) + finalResult;
@@ -83,6 +89,9 @@ export default class labels extends Vue {
     const index = n.findIndex(t =>
         dayjs(t.title).format('M') === this.selectedMonth.toString()
     );
+    if (index < 0) {
+      return 0;
+    }
     let finalResult = 0;
     for (let i = 0; i < n[index].items.length; i++) {
       finalResult = parseFloat(n[index].items[i].number) + finalResult;
@@ -90,7 +99,10 @@ export default class labels extends Vue {
     return finalResult;
   }
 
-  beautify(day: string): string {
+  beautify(day: string): string | null {
+    if (day == undefined) {
+      return null;
+    }
     const now = dayjs();
     if (dayjs(day).isSame(now, 'day')) {
       return '今天';
@@ -106,8 +118,15 @@ export default class labels extends Vue {
   }
 
   get result(): any {
+    const index = this.recordList.findIndex(t => dayjs(t.date).format('M') === this.selectedMonth.toString());
+    if (this.recordList === []) {
+      return null;
+    } else if (index < 0) {
+      return null;
+    }
     const {recordList} = this;
-    const n = clone(recordList
+
+    const n = clone(recordList.filter(t => dayjs(t.date).format('M') === this.selectedMonth.toString())
         .sort((a, b) =>
             dayjs(b.date).valueOf() - dayjs(a.date).valueOf()));
     const hashTable = [{title: dayjs(n[0].date).format('YYYY-M-D'), items: [n[0]]}];
@@ -228,6 +247,14 @@ export default class labels extends Vue {
           }
         }
       }
+    }
+  }
+
+  .notificationWrapper {
+    display: none;
+
+    &.showNotification {
+      display: block;
     }
   }
 }
