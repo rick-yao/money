@@ -4,11 +4,15 @@ import clone from "@/lib/clone";
 import GenerateID from "@/lib/IdGenerator";
 import dayjs from "dayjs";
 
+const month = dayjs().format("M");
 type Tag = {
   id: string;
   name: string;
 };
-
+type HashTable = {
+  title: string;
+  items: RecordItem[];
+};
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -49,8 +53,47 @@ export default new Vuex.Store({
     recordList: [] as RecordItem[],
     tagList: [] as Tag[],
     currentTag: {} as Tag,
+    result: [],
+    selectedMonth: month,
   },
   mutations: {
+    result(state) {
+      if (state.recordList.length === 0) {
+        return [];
+      } else if (
+        state.recordList.findIndex(
+          (t) => dayjs(t.date).format("M") === state.selectedMonth.toString()
+        )
+      ) {
+        return [];
+      }
+      const { recordList } = state;
+
+      const n = clone(
+        recordList
+          .filter(
+            (t) => dayjs(t.date).format("M") === state.selectedMonth.toString()
+          )
+          .sort((a, b) => dayjs(b.date).valueOf() - dayjs(a.date).valueOf())
+      );
+      const hashTable = [
+        { title: dayjs(n[0].date).format("YYYY-M-D"), items: [n[0]] },
+      ];
+      for (let i = 1; i <= n.length - 1; i++) {
+        const current = n[i];
+        const last = hashTable[hashTable.length - 1];
+        if (dayjs(current.date).isSame(last.title, "day")) {
+          last.items.push(current);
+        } else {
+          hashTable.push({
+            title: dayjs(current.date).format("YYYY-M-D"),
+            items: [current],
+          });
+        }
+      }
+      // @ts-ignore
+      state.result = hashTable;
+    },
     loadRecords(state) {
       state.recordList = JSON.parse(localStorage.getItem("RecordList") || "[]");
     },

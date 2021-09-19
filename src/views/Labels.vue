@@ -28,7 +28,6 @@ import Vue from 'vue';
 import {Component} from 'vue-property-decorator';
 import Button from '@/components/Button.vue';
 import dayjs from 'dayjs';
-import clone from '@/lib/clone';
 import NoneNotification from '@/views/NoneNotification.vue';
 import DisplayRecord from '@/views/DisplayRecord.vue';
 
@@ -36,8 +35,7 @@ import DisplayRecord from '@/views/DisplayRecord.vue';
   components: {DisplayRecord, NoneNotification, Button},
 })
 export default class labels extends Vue {
-  tagHashTable = this.$store.state.tagHashTable;
-  selectedMonth = dayjs().format('M');
+  selectedMonth = this.$store.state.selectedMonth;
   value = '-';
   dayList = {
     1: '1月',
@@ -95,39 +93,45 @@ export default class labels extends Vue {
   }
 
   get result(): any {
-    if (this.recordList.length === 0) {
-      return [];
-    } else if (
-        this.recordList.findIndex(t => dayjs(t.date).format('M') === this.selectedMonth.toString())
-    ) {
-      return [];
-    }
-    const {recordList} = this;
-
-    const n = clone(recordList.filter(t => dayjs(t.date).format('M') === this.selectedMonth.toString())
-        .sort((a, b) =>
-            dayjs(b.date).valueOf() - dayjs(a.date).valueOf()));
-    const hashTable = [{title: dayjs(n[0].date).format('YYYY-M-D'), items: [n[0]]}];
-    for (let i = 1; i <= n.length - 1; i++) {
-      const current = n[i];
-      const last = hashTable[hashTable.length - 1];
-      if (dayjs(current.date).isSame(last.title, 'day')) {
-        last.items.push(current);
-      } else {
-        hashTable.push({title: dayjs(current.date).format('YYYY-M-D'), items: [current]});
-      }
-    }
-    return hashTable;
+    return this.$store.state.result;
+    // if (this.recordList.length === 0) {
+    //   return [];
+    // } else if (
+    //     this.recordList.findIndex(t => dayjs(t.date).format('M') === this.selectedMonth.toString())
+    // ) {
+    //   return [];
+    // }
+    // const {recordList} = this;
+    //
+    // const n = clone(recordList.filter(t => dayjs(t.date).format('M') === this.selectedMonth.toString())
+    //     .sort((a, b) =>
+    //         dayjs(b.date).valueOf() - dayjs(a.date).valueOf()));
+    // const hashTable = [{title: dayjs(n[0].date).format('YYYY-M-D'), items: [n[0]]}];
+    // for (let i = 1; i <= n.length - 1; i++) {
+    //   const current = n[i];
+    //   const last = hashTable[hashTable.length - 1];
+    //   if (dayjs(current.date).isSame(last.title, 'day')) {
+    //     last.items.push(current);
+    //   } else {
+    //     hashTable.push({title: dayjs(current.date).format('YYYY-M-D'), items: [current]});
+    //   }
+    // }
+    // return hashTable;
   }
 
   beforeCreate(): void {
     this.$store.commit('loadRecords');
+    this.$store.commit('result');
   }
 }
 </script>
 
 <style lang="scss" scoped>
 @import "~@/views/style/global.scss";
+
+option {
+  color: black;
+}
 
 .contentWrapper {
   display: flex;
