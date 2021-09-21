@@ -12,11 +12,11 @@
       </div>
       <label class="notes">
         <span>备注:</span>
-        <input type="text" :value="this.currentItem.notes" @input="onNotesChanged($event.target.value)">
+        <input type="text" :value="notes" @input="onNotesChanged($event.target.value)">
       </label>
       <label class="numbers">
         <span>金额:</span>
-        <input type="number" :value="Math.abs(parseFloat(this.currentItem.number))"
+        <input type="number" :value="number"
                @input="onNumberChanged($event.target.value)">
       </label>
     </div>
