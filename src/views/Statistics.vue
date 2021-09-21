@@ -17,17 +17,7 @@
     <div class="chart">
       <DisplayChart :type.sync="value" :selector.sync="selectedDisplay"/>
     </div>
-    <ul class="displayItem">
-      <li v-for="(items, index) in result" :key="index">
-        <h3>{{ beautify(items.title) }}</h3>
-        <ul>
-          <li class="itemList" v-for="i in items.items" :key="i.date">
-            <div>{{ i.date }}</div>
-            <div>${{ i.number }}</div>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <display-record :result="result"/>
   </Layout>
 </template>
 
@@ -38,9 +28,10 @@ import dayjs from 'dayjs';
 import {Component} from 'vue-property-decorator';
 import clone from '@/lib/clone';
 import DisplayChart from '@/views/DisplayChart.vue';
+import DisplayRecord from '@/views/DisplayRecord.vue';
 
 @Component({
-  components: {DisplayChart, Types}
+  components: {DisplayRecord, DisplayChart, Types}
 })
 export default class Statistics extends Vue {
   value = '-';

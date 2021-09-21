@@ -28,8 +28,8 @@ import NoneNotification from '@/views/NoneNotification.vue';
   components: {NoneNotification}
 })
 export default class DisplayRecord extends Vue {
-  @Prop(String) selectedMonth !: string;
-  @Prop(Array) result !: [];
+  @Prop({default: dayjs().format('M')}) selectedMonth !: string;
+  @Prop({default: []}) result !: [];
   tagHashTable = this.$store.state.tagHashTable;
 
   beautify(day: string): string | null {
@@ -45,37 +45,6 @@ export default class DisplayRecord extends Vue {
       return day;
     }
   }
-
-  // get recordList(): RecordItem[] {
-  //   return this.$store.state.recordList;
-  // }
-
-  // get result(): any {
-  //   if (this.recordList.length === 0) {
-  //     return [];
-  //   } else if (
-  //       this.recordList.findIndex(t => dayjs(t.date).format('M') === this.selectedMonth.toString())
-  //   ) {
-  //     return null;
-  //   }
-  //   const {recordList} = this;
-  //
-  //   const n = clone(recordList.filter(t => dayjs(t.date).format('M') === this.selectedMonth.toString())
-  //       .sort((a, b) =>
-  //           dayjs(b.date).valueOf() - dayjs(a.date).valueOf()));
-  //   const hashTable = [{title: dayjs(n[0].date).format('YYYY-M-D'), items: [n[0]]}];
-  //   for (let i = 1; i <= n.length - 1; i++) {
-  //     const current = n[i];
-  //     const last = hashTable[hashTable.length - 1];
-  //     if (dayjs(current.date).isSame(last.title, 'day')) {
-  //       last.items.push(current);
-  //     } else {
-  //       hashTable.push({title: dayjs(current.date).format('YYYY-M-D'), items: [current]});
-  //     }
-  //   }
-  //   return hashTable;
-  // }
-
 }
 </script>
 
@@ -95,6 +64,7 @@ export default class DisplayRecord extends Vue {
 
   > li {
     padding: 10px 0;
+    font-size: 18px;
 
     h3 {
       padding-left: 5px;

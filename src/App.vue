@@ -8,6 +8,7 @@
 @import "~@/views/style/reset.scss";
 @import '~@/views/style/global.scss';
 
+
 body {
   background: white;
 }

@@ -67,6 +67,10 @@ export default class Types extends Vue {
     width: 32px;
     height: 24px;
   }
+
+  button {
+    color: black;
+  }
 }
 
 </style>
