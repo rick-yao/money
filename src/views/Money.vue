@@ -23,7 +23,6 @@ import {Component} from 'vue-property-decorator';
   }
 })
 export default class Money extends Vue {
-  layout = 'layout';
   tags = this.$store.state.tagList;
   //record 为初始值，所有的变化也都从组建中传到这里2
   record: RecordItem = {

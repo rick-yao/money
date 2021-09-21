@@ -8,7 +8,9 @@
             <div class="contentName">
               <Icon :name="i.selectedTags.toString()"/>
               <div>{{ tagHashTable[i.selectedTags.toString()] }}</div>
+              <div class="notes">{{ i.notes }}</div>
             </div>
+
             <div>{{ i.number }}</div>
           </li>
         </ul>
@@ -77,12 +79,17 @@ export default class DisplayRecord extends Vue {
     .itemList {
       display: flex;
       justify-content: space-between;
+      align-items: center;
       padding: 3px 0;
 
       .contentName {
         display: flex;
         align-items: center;
         padding-left: 10px;
+
+        .notes {
+          padding-left: 20px;
+        }
 
         .goPrevious {
           width: 40px;

@@ -10,10 +10,10 @@
       <Icon :class="selectedTags.indexOf(index)>=0 && 'selected'" :name="index"/>
       <div>{{ item }}</div>
     </div>
-    <button class="addTag">
-      <Icon name="add" @click="addTag"/>
-      添加标签
-    </button>
+    <!--    <button class="addTag">-->
+    <!--      <Icon name="add" @click="addTag"/>-->
+    <!--      添加标签-->
+    <!--    </button>-->
   </div>
 </template>
 
