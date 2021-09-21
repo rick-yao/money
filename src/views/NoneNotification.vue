@@ -28,6 +28,7 @@ export default class NoneNotification extends Vue {
     margin-top: 100px;
   }
 
+  
   div {
     padding-top: 10px;
     color: dimgrey;
