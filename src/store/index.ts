@@ -13,6 +13,7 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    currentIndex: 0,
     tagHashTable: {
       baoxian: "保险",
       dianfei: "电费",
@@ -86,6 +87,7 @@ export default new Vuex.Store({
           M: "month" as const,
           Y: "year" as const,
         };
+        //todo 当只有一项的时候，type无法获取
         const n = clone(
           recordList
             .filter((t) => t.type === type)

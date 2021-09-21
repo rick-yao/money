@@ -3,8 +3,8 @@
     <ul class="displayItem" :class="result.length === 0 && 'hidden'">
       <li v-for="(items, index) in result" :key="index">
         <h3>{{ beautify(items.title) }}</h3>
-        <ul>
-          <li class="itemList" v-for="i in items.items" :key="i.date">
+        <div>
+          <router-link class="itemList" v-for="i in items.items" :key="i.date" :to="`/records/edit/${i.id}`">
             <div class="contentName">
               <Icon :name="i.selectedTags.toString()"/>
               <div>{{ tagHashTable[i.selectedTags.toString()] }}</div>
@@ -12,8 +12,8 @@
             </div>
 
             <div>{{ i.number }}</div>
-          </li>
-        </ul>
+          </router-link>
+        </div>
       </li>
     </ul>
     <NoneNotification class="notificationWrapper" :class="result.length === 0 && 'showNotification'"/>
