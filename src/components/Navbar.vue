@@ -27,14 +27,16 @@ export default {
 nav {
   display: flex;
   box-shadow: 0 0 5px rgb(0, 0, 0, 0.25);
+  background: white;
+
 
   > .items {
-    width: 33.3333333%;
     padding: 2px 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex: 1;
 
     > .goPrevious {
       height: 32px;

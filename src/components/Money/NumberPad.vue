@@ -30,28 +30,23 @@ export default class NumberPad extends Vue {
   output = this.value;
 
   inputContent(e: MouseEvent): void {
-    const tmp = (e.target as HTMLButtonElement).textContent;
+    const button = (e.target as HTMLButtonElement);
+    const input = button.textContent!;
     if (this.output.length === 16) {
       return;
     }
     if (this.output === '0') {
-      if (tmp === '0') {
-        return;
+      if ('0123456789'.indexOf(input) >= 0) {
+        this.output = input;
+      } else {
+        this.output += input;
       }
+      return;
     }
-    if (tmp === '.') {
-      if (this.output.indexOf('.') >= 0) {
-        return;
-      }
-      this.output += tmp;
+    if (this.output.indexOf('.') >= 0 && input === '.') {
+      return;
     }
-    if (tmp && '123456789'.indexOf(tmp) >= 0) {
-      if (this.output === '0') {
-        this.output = tmp;
-        return;
-      }
-      this.output += tmp;
-    }
+    this.output += input;
   }
 
   deleteContent(): void {

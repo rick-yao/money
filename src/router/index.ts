@@ -3,8 +3,7 @@ import VueRouter, { RouteConfig } from "vue-router";
 import Money from "@/views/Money.vue";
 import Labels from "@/views/Labels.vue";
 import Statistics from "@/views/Statistics.vue";
-import NotFound from "@/views/NotFound.vue";
-import LabelEdit from "@/components/Label/LabelEdit.vue";
+import RecordEdit from "@/components/RecordEdit.vue";
 
 Vue.use(VueRouter);
 
@@ -18,7 +17,7 @@ const routes: Array<RouteConfig> = [
     component: Money,
   },
   {
-    path: "/labels",
+    path: "/records",
     component: Labels,
   },
   {
@@ -26,12 +25,12 @@ const routes: Array<RouteConfig> = [
     component: Statistics,
   },
   {
-    path: "/labels/edit/:id",
-    component: LabelEdit,
+    path: "/records/edit/:id",
+    component: RecordEdit,
   },
   {
     path: "*",
-    redirect: "/labels",
+    redirect: "/records",
   },
 ];
 

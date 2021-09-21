@@ -89,6 +89,7 @@ export default class DisplayRecord extends Vue {
 
         .notes {
           padding-left: 20px;
+          color: darkgray;
         }
 
         .goPrevious {
