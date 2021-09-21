@@ -45,7 +45,7 @@ export default class Money extends Vue {
     if (this.record.selectedTags.length === 0) {
       this.record.selectedTags.push('empty');
     }
-    this.record.id = GenerateID();
+    this.record.id = GenerateID().toString();
     this.$store.dispatch('createRecord', this.record);
   }
 }

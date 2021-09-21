@@ -59,7 +59,7 @@ export default class labels extends Vue {
       return 0;
     }
     const n = this.$store.getters.getRecord({type: '+', selector: 'M'});
-    const index = n.findIndex(t =>
+    const index = n.findIndex((t: { title: string; items: RecordItem[] }) =>
         dayjs(t.title).format('M') === this.selectedMonth.toString()
     );
     if (index < 0) {
@@ -77,7 +77,7 @@ export default class labels extends Vue {
       return 0;
     }
     const n = this.$store.getters.getRecord({type: '-', selector: 'M'});
-    const index = n.findIndex(t =>
+    const index = n.findIndex((t: { title: string; items: RecordItem[] }) =>
         dayjs(t.title).format('M') === this.selectedMonth.toString()
     );
     if (index < 0) {

@@ -37,8 +37,8 @@ export default class Statistics extends Vue {
   value = '-';
   selectedDisplay = 'W';
 
-  selectDisplay(e): void {
-    const text = e.target.innerHTML;
+  selectDisplay(e: MouseEvent): void {
+    const text = (e.target as HTMLElement).innerHTML;
     if (text === '周') {
       this.selectedDisplay = 'W';
     } else if (text === '月') {

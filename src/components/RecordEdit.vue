@@ -41,11 +41,11 @@ export default class RecordEdit extends Vue {
     this.goBack();
   }
 
-  onNotesChanged(e): void {
+  onNotesChanged(e: string): void {
     this.notes = e;
   }
 
-  onNumberChanged(e): void {
+  onNumberChanged(e: number): void {
     this.number = e;
   }
 
@@ -55,7 +55,7 @@ export default class RecordEdit extends Vue {
 
   save(): void {
     let re = /^[0-9]+.?[0-9]*$/; //判断字符串是否为数字 （判断正整数 /^[1-9]+[0-9]*]*$/）
-    if (re.test(this.number)) {
+    if (re.test(this.number.toString())) {
       if (this.recordList[this.$store.state.currentIndex].type == '-') {
         this.recordList[this.$store.state.currentIndex].number = '-' + this.number.toString();
       } else {
@@ -69,15 +69,15 @@ export default class RecordEdit extends Vue {
     }
   }
 
-  beforeCreated() {
+  beforeCreated(): void {
     this.$store.commit('loadRecords');
 
   }
 
-  created() {
+  created(): void {
     const id = this.$route.params.id;
     const recordList = this.$store.state.recordList;
-    this.$store.state.currentIndex = recordList.findIndex(t => t.id == id.toString());
+    this.$store.state.currentIndex = recordList.findIndex((t: RecordItem) => t.id == id.toString());
     this.notes = this.currentItem.notes;
     this.number = Math.abs(parseFloat(this.currentItem.number));
   }
