@@ -16,6 +16,7 @@ import Tags from '@/components/Money/Tags.vue';
 import Types from '@/components/Money/Types.vue';
 import NumberPad from '@/components/Money/NumberPad.vue';
 import {Component} from 'vue-property-decorator';
+import GenerateID from '@/lib/IdGenerator';
 
 @Component({
   components: {
@@ -44,6 +45,7 @@ export default class Money extends Vue {
     if (this.record.selectedTags.length === 0) {
       this.record.selectedTags.push('empty');
     }
+    this.record.id = GenerateID();
     this.$store.dispatch('createRecord', this.record);
   }
 }
