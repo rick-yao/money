@@ -49,7 +49,6 @@ export default class Tags extends Vue {
     this.$emit('update:record', val);
   }
 
-//todo 添加标签功能
   addTag(): void {
     const newTag: string = window.prompt('请输入标签名') || '';
     const nameList = this.tags.map(t => t.name);
