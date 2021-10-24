@@ -10,7 +10,18 @@
 
 ## 项目Demo地址
 
-此项目可以通过以下链接访问:[https://rick-yao.github.io/money-website/](https://rick-yao.github.io/money-website/)
+**请使用手机访问以保证最好体验**
+
+请使用手机浏览器二维码扫描此二维码  
+![avatar](./src/pic/qrcode.png)
+
+也可以通过以下链接访问:[https://rick-yao.github.io/money-website/](https://rick-yao.github.io/money-website/)
+
+## 项目截图
+
+![avatar](./src/pic/IMG_2389.PNG)
+![avatar](./src/pic/IMG_2391.PNG)
+![avatar](./src/pic/IMG_2390.PNG)
 
 ## 本地使用
 
