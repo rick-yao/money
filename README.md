@@ -28,7 +28,7 @@
 ```coffeescript
 ##本地运行
 
-git https: //github.com / rick - yao / money
+git https://github.com/rick-yao/money
 
 yarn install
 
