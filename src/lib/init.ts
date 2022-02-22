@@ -7,7 +7,7 @@ function init(): void {
                 notes: 'dsf',
                 number: '-3',
                 id: 1,
-                date: '2021-10-21T04:02:17.390Z',
+                date: '2022-02-01T04:02:17.390Z',
             },
             {
                 type: '-',
@@ -15,7 +15,7 @@ function init(): void {
                 notes: '哈哈',
                 number: '-33',
                 id: 3,
-                date: '2021-10-21T07:29:21.555Z',
+                date: '2022-02-01T07:29:21.555Z',
             },
             {
                 type: '-',
@@ -23,7 +23,7 @@ function init(): void {
                 notes: '111',
                 number: '-3',
                 id: 5,
-                date: '2021-10-21T07:29:24.954Z',
+                date: '2022-02-01T07:29:24.954Z',
             },
             {
                 type: '+',
@@ -31,7 +31,7 @@ function init(): void {
                 notes: '',
                 number: '3',
                 id: 6,
-                date: '2021-10-21T07:29:27.205Z',
+                date: '2022-02-01T07:29:27.205Z',
             },
             {
                 type: '+',
@@ -39,7 +39,7 @@ function init(): void {
                 notes: '',
                 number: '3',
                 id: 8,
-                date: '2021-10-21T07:29:30.048Z',
+                date: '2022-02-01T07:29:30.048Z',
             },
         ];
         localStorage.setItem('RecordList', JSON.stringify(sample));
