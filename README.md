@@ -15,7 +15,7 @@
 请使用手机浏览器二维码扫描此二维码  
 ![avatar](./src/pic/qrcode.png)
 
-也可以通过以下链接访问:[https://rick-yao.github.io/WebsiteMoney/](https://rick-yao.github.io/WebsiteMoney/)
+也可以通过以下链接访问:[https://money-rick-yao.vercel.app](https://money-rick-yao.vercel.app)
 
 ## 项目截图
 
