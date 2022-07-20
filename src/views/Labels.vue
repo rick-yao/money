@@ -3,7 +3,7 @@
     <div class="title">轻松记账</div>
     <div class="overView">
       <div class="date">
-        <div>2021年</div>
+        <div>2022年</div>
         <select id="day" v-model="selectedMonth">
           <option :value="index" v-for="(item, index) in dayList" :key="index">{{ item }}
           </option>
